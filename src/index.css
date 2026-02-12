@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================
+   Global Base Styles
+========================= */
+html,
+body {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-black text-white antialiased;
+}
+
+/* Prevent weird scroll jumps */
+#root {
+  min-height: 100%;
+}
+
+/* =========================
+   Reusable Form Inputs
+========================= */
+.input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 15px;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4);
+}
+
+/* Textarea specifically */
+textarea.input {
+  resize: vertical;
+}
+
+/* =========================
+   Buttons
+========================= */
+.btn-primary {
+  @apply inline-flex items-center justify-center
+         bg-primary text-black
+         px-8 py-3 rounded-lg
+         font-semibold tracking-wide
+         hover:bg-blue-500
+         transition;
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center
+         border border-white
+         px-8 py-3 rounded-lg
+         text-white
+         hover:bg-white hover:text-black
+         transition;
+}
+
+/* =========================
+   Glass / Card UI
+========================= */
+.card {
+  @apply rounded-2xl
+         bg-white/5 backdrop-blur
+         border border-white/10
+         shadow-lg
+         transition;
+}
+
+.card-hover {
+  @apply hover:bg-white/10
+         hover:shadow-xl
+         hover:-translate-y-1;
+}
+
+/* =========================
+   Typography Helpers
+========================= */
+.section-title {
+  @apply text-3xl md:text-4xl font-extrabold;
+}
+
+.section-subtitle {
+  @apply text-gray-400 leading-relaxed;
+}
+
+/* =========================
+   Navbar Fixes
+========================= */
+header {
+  will-change: transform;
+}
+
+/* Prevent accidental scroll-to-bottom clicks */
+a,
+button {
+  cursor: pointer;
+}
+
+/* =========================
+   Animations (Optional)
+========================= */
+.fade-in {
+  animation: fadeIn 0.4s ease-out both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Fix Chrome / Safari autofill white background ===== */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.05) inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: white;
+  transition: background-color 9999s ease-in-out 0s;
+}
+.input:not(:placeholder-shown) {
+  background: rgba(255, 255, 255, 0.05);
+}

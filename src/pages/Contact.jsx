@@ -1,84 +1,116 @@
+import { Mail, Phone, Instagram, Facebook } from "lucide-react";
 import { motion } from "framer-motion";
-import {
-  FaInstagram,
-  FaFacebookF,
-  FaPhoneAlt,
-} from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0 },
+};
 
 export default function Contact() {
   return (
-    <section className="bg-dark text-white">
-      <div className="max-w-3xl mx-auto px-6 py-32 text-center space-y-12">
+    <section className="min-h-screen bg-dark text-white pt-32 pb-24 relative">
+      <div className="max-w-6xl mx-auto px-6">
 
         {/* HEADER */}
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="text-4xl font-extrabold"
-        >
-          Contact Us
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.4 }}
-          className="text-gray-400 text-lg"
-        >
-          Reach out directly — we’ll get back to you quickly.
-        </motion.p>
-
-        {/* CONTACT LINKS */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.4 }}
-          className="space-y-6 text-lg"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-16"
         >
-
-          {/* EMAIL */}
-          <a
-            href="mailto:appliedstylenj@gmail.com"
-            className="flex items-center justify-center gap-4 text-primary hover:underline"
-          >
-            <MdEmail className="text-2xl" />
-            appliedstylenj@gmail.com
-          </a>
-
-          {/* PHONE */}
-          <a
-            href="tel:15551234567"
-            className="flex items-center justify-center gap-4 text-primary hover:underline"
-          >
-            <FaPhoneAlt className="text-xl" />
-            (732)-405-0989
-          </a>
-
-          {/* INSTAGRAM */}
-          <a
-            href="https://instagram.com/appliedstyle.nj"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-4 text-primary hover:underline"
-          >
-            <FaInstagram className="text-2xl" />
-            @appliedstylenj
-          </a>
-
-          {/* FACEBOOK */}
-          <a
-            href="https://facebook.com/appliedstylenj"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-4 text-primary hover:underline"
-          >
-            <FaFacebookF className="text-2xl" />
-            Applied Style NJ
-          </a>
-
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
+            Contact Us
+          </h1>
+          <p className="text-gray-400 text-lg">
+            Reach out directly — we’ll get back to you quickly.
+          </p>
         </motion.div>
+
+        {/* CONTACT CARDS */}
+        <div className="grid md:grid-cols-2 gap-8">
+
+          {[
+            {
+              icon: Mail,
+              title: "Email",
+              value: "appliedstylenj@gmail.com",
+              link: "mailto:appliedstylenj@gmail.com",
+            },
+            {
+              icon: Phone,
+              title: "Phone",
+              value: "(732) 405-0989",
+              link: "tel:7324050989",
+            },
+            {
+              icon: Instagram,
+              title: "Instagram",
+              value: "@appliedstylenj",
+              link: "https://instagram.com/appliedstyle.nj",
+            },
+            {
+              icon: Facebook,
+              title: "Facebook",
+              value: "Applied Style NJ",
+              link: "#",
+            },
+          ].map(({ icon: Icon, title, value, link }, index) => (
+            <motion.a
+              key={title}
+              href={link}
+              target={link.includes("http") ? "_blank" : ""}
+              rel="noopener noreferrer"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 
+                         hover:border-primary/50 hover:bg-white/10 
+                         transition-all overflow-hidden"
+            >
+              {/* GRADIENT GLOW */}
+              <div className="absolute -top-10 -left-10 w-40 h-40 
+                              bg-primary/20 blur-3xl 
+                              opacity-0 group-hover:opacity-100 
+                              transition-all duration-500" />
+
+              <div className="relative flex items-center gap-6">
+                <Icon className="w-12 h-12 text-primary 
+                                 group-hover:scale-110 transition" />
+                <div>
+                  <h3 className="text-xl font-semibold">{title}</h3>
+                  <p className="text-gray-400">{value}</p>
+                </div>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+      </div>
+
+      {/* FLOATING BUTTONS */}
+      <div className="fixed bottom-6 right-6 flex flex-col gap-4 z-50">
+        
+        <a
+          href="tel:7324050989"
+          className="w-14 h-14 flex items-center justify-center 
+                     rounded-full bg-primary text-black shadow-lg
+                     hover:scale-110 transition-all"
+        >
+          <Phone />
+        </a>
+
+        <a
+          href="mailto:appliedstylenj@gmail.com"
+          className="w-14 h-14 flex items-center justify-center 
+                     rounded-full bg-white text-black shadow-lg
+                     hover:scale-110 transition-all"
+        >
+          <Mail />
+        </a>
+
       </div>
     </section>
   );

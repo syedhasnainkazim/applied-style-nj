@@ -42,10 +42,8 @@ export default function Footer() {
           <h4 className="text-white font-semibold tracking-wide">
             Hours
           </h4>
-
           <div className="space-y-1 text-sm">
-            <p>Monday – Friday: 10:00 AM – 6:00 PM</p>
-            <p>Saturday: 10:00 AM – 5:00 PM</p>
+            <p>Monday – Saturday: 10:00 AM – 6:00 PM</p>
             <p>Sunday: 10:00 AM – 4:00 PM</p>
           </div>
 
@@ -54,7 +52,7 @@ export default function Footer() {
               Location
             </h4>
             <p className="text-sm mt-2">
-              Edison, New Jersey
+              Edison, New Jersey 08817
               <br />
               (Exact address available upon booking)
             </p>

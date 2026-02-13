@@ -1,136 +1,125 @@
-import { Wrench, Shield, Droplet, Paintbrush, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Paintbrush, Shield, Sparkles, Droplets, Wrench } from "lucide-react";
 
 export default function Services() {
   const services = [
     {
       title: "Vinyl Wraps",
-      slug: "vinyl-wraps",
-      icon: Paintbrush,
-      desc:
+      description:
         "Full and partial wraps using premium materials for bold color changes and unique styling.",
-      items: ["Full vehicle wraps", "Color change wraps", "Accent & roof wraps"],
+      bullets: [
+        "Full vehicle wraps",
+        "Color change wraps",
+        "Accent & roof wraps",
+      ],
+      icon: <Paintbrush className="w-6 h-6 text-primary" />,
+      link: "/services/vinyl-wraps", // 👈 THIS MATCHES YOUR ROUTE
     },
     {
       title: "Window Tint",
-      slug: "window-tint",
-      icon: Shield,
-      desc:
+      description:
         "High-quality window tinting for heat rejection, privacy, and UV protection.",
-      items: ["Ceramic tint options", "UV & heat rejection", "Legal compliance"],
+      bullets: [
+        "Ceramic tint options",
+        "UV & heat rejection",
+        "Legal compliance",
+      ],
+      icon: <Shield className="w-6 h-6 text-primary" />,
     },
     {
       title: "Paint Protection Film",
-      slug: "paint-protection-film",
-      icon: Sparkles,
-      desc:
+      description:
         "Invisible protection to guard your paint from chips, scratches, and road debris.",
-      items: ["Front-end protection", "Full-body PPF", "Self-healing film"],
+      bullets: [
+        "Front-end protection",
+        "Full-body PPF",
+        "Self-healing film",
+      ],
+      icon: <Sparkles className="w-6 h-6 text-primary" />,
     },
     {
       title: "Ceramic Coating",
-      slug: "ceramic-coating",
-      icon: Droplet,
-      desc:
+      description:
         "Professional coatings to enhance gloss, protection, and long-term durability.",
-      items: [
+      bullets: [
         "Exterior ceramic coating",
         "Hydrophobic protection",
         "Easy maintenance",
       ],
+      icon: <Droplets className="w-6 h-6 text-primary" />,
     },
     {
       title: "Detailing Services",
-      slug: "detailing",
-      icon: Wrench,
-      desc:
+      description:
         "Interior and exterior detailing to restore showroom-level appearance.",
-      items: [
+      bullets: [
         "Interior deep clean",
         "Exterior polish",
         "Maintenance packages",
       ],
+      icon: <Wrench className="w-6 h-6 text-primary" />,
     },
     {
       title: "Custom Projects",
-      slug: "custom-projects",
-      icon: Wrench,
-      desc:
+      description:
         "One-off projects tailored to your vision with specialty finishes.",
-      items: ["Custom accents", "Branding & graphics", "Specialty finishes"],
+      bullets: [
+        "Custom accents",
+        "Branding & graphics",
+        "Specialty finishes",
+      ],
+      icon: <Paintbrush className="w-6 h-6 text-primary" />,
     },
   ];
 
   return (
-    <section className="bg-dark text-white">
-      <div className="max-w-7xl mx-auto px-6 py-28 space-y-24">
+    <section className="min-h-screen bg-dark text-white pt-32 pb-24">
+      <div className="max-w-6xl mx-auto px-6">
 
         {/* HEADER */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
-          <h1 className="text-4xl md:text-5xl font-extrabold">
+        <div className="text-center mb-20">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Our Services
           </h1>
-          <p className="text-gray-400 leading-relaxed">
+          <p className="text-gray-400 max-w-2xl mx-auto">
             Precision automotive styling built with premium materials and expert craftsmanship.
           </p>
         </div>
 
-        {/* SERVICE CARDS */}
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-          {services.map(({ title, slug, icon: Icon, desc, items }) => (
-            <Link
-              key={slug}
-              to={`/services/${slug}`}
-              className="group"
-            >
-              <div
-                className="
-                  h-full p-8 rounded-2xl
-                  bg-white/5 backdrop-blur
-                  border border-white/10
-                  hover:border-primary/40
-                  hover:bg-white/10
-                  hover:-translate-y-1
-                  hover:shadow-xl
-                  transition-all
-                  cursor-pointer
-                "
-              >
-                <Icon className="w-6 h-6 text-primary mb-4" />
+        {/* SERVICES GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {services.map((service) => {
+            const Card = (
+              <div className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/40 transition duration-300 group">
+                <div className="mb-6">
+                  {service.icon}
+                </div>
 
-                <h3 className="text-xl font-semibold mb-3">
-                  {title}
+                <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition">
+                  {service.title}
                 </h3>
 
-                <p className="text-sm text-gray-400 mb-6 leading-relaxed">
-                  {desc}
+                <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                  {service.description}
                 </p>
 
-                <ul className="space-y-2 text-sm text-gray-400">
-                  {items.map((item) => (
-                    <li key={item} className="flex gap-2">
-                      <span className="text-primary">•</span>
-                      {item}
-                    </li>
+                <ul className="space-y-2 text-sm text-gray-500">
+                  {service.bullets.map((bullet) => (
+                    <li key={bullet}>• {bullet}</li>
                   ))}
                 </ul>
-
-                {/* HOVER AFFORDANCE */}
-                <p
-                  className="
-                    mt-6 text-sm text-primary
-                    opacity-0 translate-y-2
-                    group-hover:opacity-100 group-hover:translate-y-0
-                    transition-all
-                  "
-                >
-                  View Details →
-                </p>
               </div>
-            </Link>
-          ))}
-        </div>
+            );
 
+            return service.link ? (
+              <Link key={service.title} to={service.link}>
+                {Card}
+              </Link>
+            ) : (
+              <div key={service.title}>{Card}</div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

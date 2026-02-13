@@ -1,11 +1,37 @@
 import { motion } from "framer-motion";
 
+import tint1 from "../assets/images/tints.jpg";
+import vinyl1 from "../assets/images/modelywrap.jpg";
+import ceramic1 from "../assets/images/ceramic1.jpg";
+
+import tint2 from "../assets/images/tints2.jpg";
+import detail911 from "../assets/images/911detailext.jpg";
+import ceramic2 from "../assets/images/ceramic2.jpg";
+
+import tint5 from "../assets/images/tints5.jpg";
+import m5detail from "../assets/images/m5detail.jpg";
+import hoodwrap from "../assets/images/hoodwrap.jpg";
+
 export default function Home() {
+  const gallery = [
+    { src: tint1, label: "Tints" },
+    { src: vinyl1, label: "Vinyl Wrap" },
+    { src: ceramic1, label: "Ceramic Coating" },
+
+    { src: tint2, label: "Tints" },
+    { src: detail911, label: "Detail" },
+    { src: ceramic2, label: "Ceramic Coating" },
+
+    { src: tint5, label: "Tints" },
+    { src: m5detail, label: "Detail" },
+    { src: hoodwrap, label: "Vinyl Wrap" },
+  ];
+
   return (
     <section className="bg-dark text-white">
       <div className="max-w-6xl mx-auto px-6 pt-40 pb-32 space-y-28">
 
-        {/* GREETING / INTRO */}
+        {/* INTRO */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -31,19 +57,41 @@ export default function Home() {
           </p>
         </motion.div>
 
-        {/* WORK / GALLERY PLACEHOLDER */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.4 }}
-          className="rounded-2xl border border-white/10 bg-white/5 p-12 text-center"
-        >
-          <p className="text-gray-400">
-            Our work gallery will live here — photos and videos coming soon.
-          </p>
-        </motion.div>
+        {/* GALLERY */}
+        <div>
+          <h2 className="text-3xl font-bold mb-10 text-center">
+            Our Work
+          </h2>
 
-        {/* EXPERIENCE / VALUES */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+            {gallery.map((item, index) => (
+              <div
+                key={index}
+                className="relative group overflow-hidden rounded-2xl border border-white/10"
+              >
+                <img
+                  src={item.src}
+                  alt={item.label}
+                  className="w-full h-80 object-cover transition duration-500 group-hover:scale-105"
+                />
+
+                {/* TOP LABEL */}
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition duration-300">
+                  <div className="px-4 py-2 rounded-full bg-black/70 backdrop-blur-md border border-white/10 shadow-lg">
+                    <span className="text-white text-sm font-semibold tracking-wide">
+                      {item.label}
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+            ))}
+
+          </div>
+        </div>
+
+        {/* EXPERIENCE CARDS */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

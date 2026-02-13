@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import VinylWrap from "./pages/VinylWrap";
-import GetQuote from "./pages/GetQuote"; // ✅ MAKE SURE THIS EXISTS
+import GetQuote from "./pages/GetQuote";
 
 function App() {
   return (
@@ -14,9 +14,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/services/vinyl-wraps" element={<VinylWrap />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/get-quote" element={<GetQuote />} /> {/* ✅ IMPORTANT */}
+          <Route path="/get-quote" element={<GetQuote />} />
+          <Route path="/services/vinyl-wraps" element={<VinylWrap />} />
         </Routes>
       </Layout>
     </Router>

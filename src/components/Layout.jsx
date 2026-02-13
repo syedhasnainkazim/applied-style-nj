@@ -10,12 +10,13 @@ export default function Layout() {
       <Navbar />
 
       {/* PAGE CONTENT */}
-      <main className="flex-1 pt-24">
+      <main className="flex-1 pt-28">
         <Outlet />
       </main>
 
       {/* FOOTER */}
       <Footer />
+      
     </div>
   );
 }

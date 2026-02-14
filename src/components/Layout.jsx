@@ -7,15 +7,17 @@ import ScrollToTop from "./ScrollToTop";
 export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col bg-dark text-white">
-      
+
       {/* Scroll to top on route change */}
       <ScrollToTop />
 
-      {/* NAVBAR */}
+      {/* NAVBAR (fixed) */}
       <Navbar />
 
       {/* PAGE CONTENT */}
-      <main className="flex-1 pt-28">
+      {/* pt-20 = mobile spacing */}
+      {/* pt-28 = desktop spacing */}
+      <main className="flex-1 pt-20 md:pt-28">
         <Outlet />
       </main>
 
@@ -24,7 +26,7 @@ export default function Layout() {
 
       {/* Floating CTA */}
       <StickyCTA />
-      
+
     </div>
   );
 }

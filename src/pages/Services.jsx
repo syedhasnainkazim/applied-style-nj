@@ -13,7 +13,7 @@ export default function Services() {
         "Accent & roof wraps",
       ],
       icon: <Paintbrush className="w-6 h-6 text-primary" />,
-      link: "/services/vinyl-wraps", // 👈 THIS MATCHES YOUR ROUTE
+      link: "/services/vinyl-wraps",
     },
     {
       title: "Window Tint",
@@ -25,6 +25,7 @@ export default function Services() {
         "Legal compliance",
       ],
       icon: <Shield className="w-6 h-6 text-primary" />,
+      link: "/services/window-tint", // ✅ ADDED
     },
     {
       title: "Paint Protection Film",
@@ -36,6 +37,7 @@ export default function Services() {
         "Self-healing film",
       ],
       icon: <Sparkles className="w-6 h-6 text-primary" />,
+      link: "/services/paint-protection-film",
     },
     {
       title: "Ceramic Coating",
@@ -47,6 +49,7 @@ export default function Services() {
         "Easy maintenance",
       ],
       icon: <Droplets className="w-6 h-6 text-primary" />,
+      link: "/services/ceramic-coating",
     },
     {
       title: "Detailing Services",
@@ -58,6 +61,7 @@ export default function Services() {
         "Maintenance packages",
       ],
       icon: <Wrench className="w-6 h-6 text-primary" />,
+      link: "/services/detailing",
     },
     {
       title: "Custom Projects",
@@ -69,6 +73,7 @@ export default function Services() {
         "Specialty finishes",
       ],
       icon: <Paintbrush className="w-6 h-6 text-primary" />,
+      link: "/services/custom-projects",
     },
   ];
 
@@ -88,9 +93,14 @@ export default function Services() {
 
         {/* SERVICES GRID */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((service) => {
-            const Card = (
-              <div className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/40 transition duration-300 group">
+          {services.map((service) => (
+            <Link
+              key={service.title}
+              to={service.link}
+              className="block group"
+            >
+              <div className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/40 transition duration-300 hover:-translate-y-1">
+                
                 <div className="mb-6">
                   {service.icon}
                 </div>
@@ -108,17 +118,10 @@ export default function Services() {
                     <li key={bullet}>• {bullet}</li>
                   ))}
                 </ul>
-              </div>
-            );
 
-            return service.link ? (
-              <Link key={service.title} to={service.link}>
-                {Card}
-              </Link>
-            ) : (
-              <div key={service.title}>{Card}</div>
-            );
-          })}
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>

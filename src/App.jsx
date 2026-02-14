@@ -1,4 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 
 import Layout from "./components/Layout";
 
@@ -9,41 +15,42 @@ import GetQuote from "./pages/GetQuote";
 import VinylWrap from "./pages/VinylWrap";
 import WindowTint from "./pages/WindowTint";
 
-// NEW SERVICE PAGES
-import PaintProtectionFilm from "./pages/PaintProtectionFilm";
-import CeramicCoating from "./pages/CeramicCoating";
-import Detailing from "./pages/Detailing";
-import CustomProjects from "./pages/CustomProjects";
+function AnimatedRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<PageWrapper><Home /></PageWrapper>} />
+          <Route path="services" element={<PageWrapper><Services /></PageWrapper>} />
+          <Route path="services/vinyl-wraps" element={<PageWrapper><VinylWrap /></PageWrapper>} />
+          <Route path="services/window-tint" element={<PageWrapper><WindowTint /></PageWrapper>} />
+          <Route path="contact" element={<PageWrapper><Contact /></PageWrapper>} />
+          <Route path="get-quote" element={<PageWrapper><GetQuote /></PageWrapper>} />
+        </Route>
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
+function PageWrapper({ children }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.35 }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 export default function App() {
   return (
     <Router>
-      <Routes>
-
-        {/* Layout wrapper */}
-        <Route path="/" element={<Layout />}>
-
-          {/* Home */}
-          <Route index element={<Home />} />
-
-          {/* Services */}
-          <Route path="services" element={<Services />} />
-          <Route path="services/vinyl-wraps" element={<VinylWrap />} />
-          <Route path="services/window-tint" element={<WindowTint />} />
-          <Route path="services/paint-protection-film" element={<PaintProtectionFilm />} />
-          <Route path="services/ceramic-coating" element={<CeramicCoating />} />
-          <Route path="services/detailing" element={<Detailing />} />
-          <Route path="services/custom-projects" element={<CustomProjects />} />
-
-          {/* Contact */}
-          <Route path="contact" element={<Contact />} />
-
-          {/* Get Quote */}
-          <Route path="get-quote" element={<GetQuote />} />
-
-        </Route>
-
-      </Routes>
+      <AnimatedRoutes />
     </Router>
   );
 }

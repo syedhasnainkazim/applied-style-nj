@@ -15,9 +15,8 @@ export default function Contact() {
         <motion.div
           variants={fadeUp}
           initial="hidden"
-          whileInView="visible"
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+          animate="visible"
+          transition={{ duration: 0.5 }}
           className="mb-16"
         >
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
@@ -56,37 +55,27 @@ export default function Contact() {
               value: "Applied Style NJ",
               link: "#",
             },
-          ].map(({ icon: Icon, title, value, link }, index) => (
-            <motion.a
+          ].map(({ icon: Icon, title, value, link }) => (
+            <a
               key={title}
               href={link}
               target={link.includes("http") ? "_blank" : ""}
               rel="noopener noreferrer"
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 
-                         hover:border-primary/50 hover:bg-white/10 
-                         transition-all overflow-hidden"
+              className="card card-hover p-8 cursor-pointer flex items-center gap-6"
             >
-              {/* GRADIENT GLOW */}
-              <div className="absolute -top-10 -left-10 w-40 h-40 
-                              bg-primary/20 blur-3xl 
-                              opacity-0 group-hover:opacity-100 
-                              transition-all duration-500" />
+              <Icon className="w-10 h-10 text-primary" />
 
-              <div className="relative flex items-center gap-6">
-                <Icon className="w-12 h-12 text-primary 
-                                 group-hover:scale-110 transition" />
-                <div>
-                  <h3 className="text-xl font-semibold">{title}</h3>
-                  <p className="text-gray-400">{value}</p>
-                </div>
+              <div>
+                <h3 className="text-xl font-semibold">
+                  {title}
+                </h3>
+                <p className="text-gray-400">
+                  {value}
+                </p>
               </div>
-            </motion.a>
+            </a>
           ))}
+
         </div>
       </div>
 
@@ -97,7 +86,7 @@ export default function Contact() {
           href="tel:7324050989"
           className="w-14 h-14 flex items-center justify-center 
                      rounded-full bg-primary text-black shadow-lg
-                     hover:scale-110 transition-all"
+                     hover:scale-110 transition"
         >
           <Phone />
         </a>
@@ -106,7 +95,7 @@ export default function Contact() {
           href="mailto:appliedstylenj@gmail.com"
           className="w-14 h-14 flex items-center justify-center 
                      rounded-full bg-white text-black shadow-lg
-                     hover:scale-110 transition-all"
+                     hover:scale-110 transition"
         >
           <Mail />
         </a>

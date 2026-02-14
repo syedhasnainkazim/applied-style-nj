@@ -3,16 +3,22 @@ import vinyl1 from "../assets/images/vinylpage1.jpg";
 import vinyl2 from "../assets/images/vinylpage2.jpg";
 import vinyl3 from "../assets/images/vinylwrap3.jpg";
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0 },
+};
+
 export default function VinylWrap() {
   return (
-    <section className="bg-dark text-white min-h-screen">
-      <div className="max-w-6xl mx-auto px-6 pt-40 pb-24 space-y-20">
+    <section className="bg-dark text-white min-h-screen pt-40 pb-24">
+      <div className="max-w-6xl mx-auto px-6 space-y-20">
 
         {/* HEADER */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          transition={{ duration: 0.6 }}
           className="text-center space-y-6"
         >
           <h1 className="text-4xl md:text-5xl font-extrabold">
@@ -26,61 +32,32 @@ export default function VinylWrap() {
               href="https://metrorestyling.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary hover:text-white transition font-medium"
+              className="text-primary hover:text-white transition"
             >
               View Colors
             </a>
           </div>
         </motion.div>
-{/* Vinyl Wrap Gallery */}
-<div className="mt-14">
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 
-    {[vinyl1, vinyl2, vinyl3].map((img, index) => (
-      <div
-        key={index}
-        className="relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 group aspect-square"
-      >
-        <img
-          src={img}
-          alt="Vinyl Wrap Work"
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-      </div>
-    ))}
+        {/* GALLERY */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {[vinyl1, vinyl2, vinyl3].map((img, index) => (
+            <div
+              key={index}
+              className="group relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 hover:border-primary/50 hover:bg-white/10 transition-all duration-300 aspect-square"
+            >
+              <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary/20 blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
+              <img
+                src={img}
+                alt="Vinyl Wrap Work"
+                className="relative w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              />
+            </div>
+          ))}
+        </div>
 
-  </div>
-</div>
-
-        {/* DESCRIPTION SECTION */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.4 }}
-          className="max-w-3xl mx-auto text-center space-y-6"
-        >
-          <p className="text-gray-300 leading-relaxed text-lg">
-            Transform your vehicle with a premium vinyl wrap.
-            Whether you're looking for a bold color change, satin finish,
-            matte black, gloss metallic, or custom graphics — we deliver
-            flawless installation with precision and care.
-          </p>
-
-          <p className="text-gray-400 leading-relaxed">
-            Every wrap is professionally installed using high-quality
-            materials for durability, protection, and long-lasting
-            visual impact.
-          </p>
-        </motion.div>
-
-
-        {/* FEATURES GRID */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.4 }}
-          className="grid md:grid-cols-3 gap-8"
-        >
+        {/* FEATURES */}
+        <div className="grid md:grid-cols-3 gap-8">
           {[
             {
               title: "Full Vehicle Wraps",
@@ -97,33 +74,28 @@ export default function VinylWrap() {
           ].map((item) => (
             <div
               key={item.title}
-              className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/50 transition"
+              className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/50 hover:bg-white/10 transition-all duration-300"
             >
-              <h3 className="text-xl font-semibold mb-4">
+              <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary/20 blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
+              <h3 className="relative text-xl font-semibold mb-4">
                 {item.title}
               </h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
+              <p className="relative text-gray-400 text-sm leading-relaxed">
                 {item.text}
               </p>
             </div>
           ))}
-        </motion.div>
+        </div>
 
-
-        {/* CTA SECTION */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="text-center pt-12"
-        >
+        {/* CTA */}
+        <div className="text-center pt-12">
           <a
             href="/get-quote"
-            className="inline-block px-8 py-4 bg-primary text-black font-semibold rounded-xl hover:opacity-90 transition"
+            className="btn-primary"
           >
             Get a Quote
           </a>
-        </motion.div>
+        </div>
 
       </div>
     </section>

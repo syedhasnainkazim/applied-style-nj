@@ -81,6 +81,7 @@ export default function Services() {
     <section className="min-h-screen bg-dark text-white pt-32 pb-24">
       <div className="max-w-6xl mx-auto px-6">
 
+        {/* HEADER */}
         <div className="text-center mb-20">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Our Services
@@ -90,24 +91,29 @@ export default function Services() {
           </p>
         </div>
 
+        {/* SERVICES GRID */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((service) => (
-            <Link key={service.title} to={service.link}>
-              <div className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/40 transition duration-300 group hover:scale-[1.02] cursor-pointer">
+            <Link key={service.title} to={service.link} className="h-full">
+              <div className="card card-hover p-8 h-full flex flex-col cursor-pointer group">
 
+                {/* ICON */}
                 <div className="mb-6">
                   {service.icon}
                 </div>
 
+                {/* TITLE */}
                 <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition">
                   {service.title}
                 </h3>
 
+                {/* DESCRIPTION */}
                 <p className="text-gray-400 text-sm mb-6 leading-relaxed">
                   {service.description}
                 </p>
 
-                <ul className="space-y-2 text-sm text-gray-500">
+                {/* BULLETS (push to bottom for equal height) */}
+                <ul className="space-y-2 text-sm text-gray-500 mt-auto">
                   {service.bullets.map((bullet) => (
                     <li key={bullet}>• {bullet}</li>
                   ))}
@@ -117,6 +123,7 @@ export default function Services() {
             </Link>
           ))}
         </div>
+
       </div>
     </section>
   );

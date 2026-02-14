@@ -19,11 +19,11 @@ export default function Home() {
     { src: ceramic1, label: "Ceramic Coating" },
 
     { src: tint2, label: "Tints" },
-    { src: detail911, label: "Detail" },
+    { src: detail911, label: "Detailing" },
     { src: ceramic2, label: "Ceramic Coating" },
 
     { src: tint5, label: "Tints" },
-    { src: m5detail, label: "Detail" },
+    { src: m5detail, label: "Detailing" },
     { src: hoodwrap, label: "Vinyl Wrap" },
   ];
 
@@ -68,17 +68,34 @@ export default function Home() {
             {gallery.map((item, index) => (
               <div
                 key={index}
-                className="relative group overflow-hidden rounded-2xl border border-white/10"
+                className="group relative overflow-hidden rounded-2xl 
+                           bg-white/5 border border-white/10
+                           hover:border-primary/50 hover:bg-white/10
+                           hover:-translate-y-1
+                           transition-all duration-300"
               >
+                {/* Glow Effect */}
+                <div className="absolute -top-10 -left-10 w-40 h-40 
+                                bg-primary/20 blur-3xl 
+                                opacity-0 group-hover:opacity-100 
+                                transition-all duration-500" />
+
+                {/* Image */}
                 <img
                   src={item.src}
                   alt={item.label}
-                  className="w-full h-80 object-cover transition duration-500 group-hover:scale-105"
+                  className="w-full h-80 object-cover 
+                             transition duration-500 
+                             group-hover:scale-105"
                 />
 
-                {/* TOP LABEL */}
-                <div className="absolute top-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition duration-300">
-                  <div className="px-4 py-2 rounded-full bg-black/70 backdrop-blur-md border border-white/10 shadow-lg">
+                {/* TOP CENTER LABEL */}
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 
+                                opacity-0 group-hover:opacity-100 
+                                transition duration-300">
+                  <div className="px-5 py-2 rounded-full 
+                                  bg-black/70 backdrop-blur-md 
+                                  border border-white/10 shadow-lg">
                     <span className="text-white text-sm font-semibold tracking-wide">
                       {item.label}
                     </span>
@@ -117,12 +134,21 @@ export default function Home() {
           ].map((item) => (
             <div
               key={item.title}
-              className="p-8 rounded-2xl bg-white/5 border border-white/10"
+              className="group relative p-8 rounded-2xl 
+                         bg-white/5 border border-white/10
+                         hover:border-primary/50 hover:bg-white/10
+                         hover:-translate-y-1
+                         transition-all duration-300"
             >
-              <h3 className="text-xl font-semibold mb-3">
+              <div className="absolute -top-10 -left-10 w-40 h-40 
+                              bg-primary/20 blur-3xl 
+                              opacity-0 group-hover:opacity-100 
+                              transition-all duration-500" />
+
+              <h3 className="relative text-xl font-semibold mb-3">
                 {item.title}
               </h3>
-              <p className="text-sm text-gray-400 leading-relaxed">
+              <p className="relative text-sm text-gray-400 leading-relaxed">
                 {item.text}
               </p>
             </div>

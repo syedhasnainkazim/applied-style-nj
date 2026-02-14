@@ -15,7 +15,6 @@ body {
   @apply bg-black text-white antialiased;
 }
 
-/* Prevent weird scroll jumps */
 #root {
   min-height: 100%;
 }
@@ -32,7 +31,7 @@ body {
   color: white;
   font-size: 15px;
   outline: none;
-  transition: border 0.2s, box-shadow 0.2s;
+  transition: all 0.2s ease;
 }
 
 .input::placeholder {
@@ -44,7 +43,6 @@ body {
   box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4);
 }
 
-/* Textarea specifically */
 textarea.input {
   resize: vertical;
 }
@@ -57,8 +55,8 @@ textarea.input {
          bg-primary text-black
          px-8 py-3 rounded-lg
          font-semibold tracking-wide
-         hover:bg-blue-500
-         transition;
+         transition duration-300
+         hover:bg-blue-500;
 }
 
 .btn-outline {
@@ -66,23 +64,31 @@ textarea.input {
          border border-white
          px-8 py-3 rounded-lg
          text-white
-         hover:bg-white hover:text-black
-         transition;
+         transition duration-300
+         hover:bg-white hover:text-black;
 }
 
 /* =========================
-   Glass / Card UI
+   Universal Card System
 ========================= */
+
+/* Base Card (used everywhere) */
+/* =========================
+   Glass / Card UI (GLOBAL)
+========================= */
+
 .card {
   @apply rounded-2xl
-         bg-white/5 backdrop-blur
+         bg-white/5
          border border-white/10
+         backdrop-blur
          shadow-lg
-         transition;
+         transition-all duration-300 ease-out;
 }
 
 .card-hover {
   @apply hover:bg-white/10
+         hover:border-primary/40
          hover:shadow-xl
          hover:-translate-y-1;
 }
@@ -99,20 +105,19 @@ textarea.input {
 }
 
 /* =========================
-   Navbar Fixes
+   Navbar Stability
 ========================= */
 header {
   will-change: transform;
 }
 
-/* Prevent accidental scroll-to-bottom clicks */
 a,
 button {
   cursor: pointer;
 }
 
 /* =========================
-   Animations (Optional)
+   Fade Animation
 ========================= */
 .fade-in {
   animation: fadeIn 0.4s ease-out both;
@@ -129,7 +134,9 @@ button {
   }
 }
 
-/* ===== Fix Chrome / Safari autofill white background ===== */
+/* =========================
+   Chrome Autofill Fix
+========================= */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -139,6 +146,7 @@ textarea:-webkit-autofill {
   caret-color: white;
   transition: background-color 9999s ease-in-out 0s;
 }
+
 .input:not(:placeholder-shown) {
   background: rgba(255, 255, 255, 0.05);
 }

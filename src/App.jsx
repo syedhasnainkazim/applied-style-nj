@@ -7,15 +7,22 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import GetQuote from "./pages/GetQuote";
 import VinylWrap from "./pages/VinylWrap";
-import WindowTint from "./pages/WindowTint"; // ✅ add this
+import WindowTint from "./pages/WindowTint";
+
+// NEW SERVICE PAGES
+import PaintProtectionFilm from "./pages/PaintProtectionFilm";
+import CeramicCoating from "./pages/CeramicCoating";
+import Detailing from "./pages/Detailing";
+import CustomProjects from "./pages/CustomProjects";
 
 export default function App() {
   return (
     <Router>
       <Routes>
+
         {/* Layout wrapper */}
         <Route path="/" element={<Layout />}>
-          
+
           {/* Home */}
           <Route index element={<Home />} />
 
@@ -23,6 +30,10 @@ export default function App() {
           <Route path="services" element={<Services />} />
           <Route path="services/vinyl-wraps" element={<VinylWrap />} />
           <Route path="services/window-tint" element={<WindowTint />} />
+          <Route path="services/paint-protection-film" element={<PaintProtectionFilm />} />
+          <Route path="services/ceramic-coating" element={<CeramicCoating />} />
+          <Route path="services/detailing" element={<Detailing />} />
+          <Route path="services/custom-projects" element={<CustomProjects />} />
 
           {/* Contact */}
           <Route path="contact" element={<Contact />} />
@@ -31,6 +42,7 @@ export default function App() {
           <Route path="get-quote" element={<GetQuote />} />
 
         </Route>
+
       </Routes>
     </Router>
   );

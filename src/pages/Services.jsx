@@ -25,7 +25,7 @@ export default function Services() {
         "Legal compliance",
       ],
       icon: <Shield className="w-6 h-6 text-primary" />,
-      link: "/services/window-tint", // ✅ ADDED
+      link: "/services/window-tint",
     },
     {
       title: "Paint Protection Film",
@@ -81,7 +81,6 @@ export default function Services() {
     <section className="min-h-screen bg-dark text-white pt-32 pb-24">
       <div className="max-w-6xl mx-auto px-6">
 
-        {/* HEADER */}
         <div className="text-center mb-20">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Our Services
@@ -91,16 +90,11 @@ export default function Services() {
           </p>
         </div>
 
-        {/* SERVICES GRID */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((service) => (
-            <Link
-              key={service.title}
-              to={service.link}
-              className="block group"
-            >
-              <div className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/40 transition duration-300 hover:-translate-y-1">
-                
+            <Link key={service.title} to={service.link}>
+              <div className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/40 transition duration-300 group hover:scale-[1.02] cursor-pointer">
+
                 <div className="mb-6">
                   {service.icon}
                 </div>

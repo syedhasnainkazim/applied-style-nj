@@ -1,6 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Footer() {
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    navigate(path);
+    window.scrollTo(0, 0); // optional but safe
+  };
+
   return (
     <footer className="bg-black border-t border-white/10 mt-24">
       <div className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-12 text-gray-400">
@@ -21,19 +28,37 @@ export default function Footer() {
           <h4 className="text-white font-semibold tracking-wide">
             Navigation
           </h4>
+
           <div className="flex flex-col space-y-2">
-            <Link to="/" className="hover:text-primary transition">
+
+            <button
+              onClick={() => handleNavigation("/")}
+              className="text-left hover:text-primary transition"
+            >
               Home
-            </Link>
-            <Link to="/services" className="hover:text-primary transition">
+            </button>
+
+            <button
+              onClick={() => handleNavigation("/services")}
+              className="text-left hover:text-primary transition"
+            >
               Services
-            </Link>
-            <Link to="/contact" className="hover:text-primary transition">
+            </button>
+
+            <button
+              onClick={() => handleNavigation("/contact")}
+              className="text-left hover:text-primary transition"
+            >
               Contact
-            </Link>
-            <Link to="/get-quote" className="hover:text-primary transition">
+            </button>
+
+            <button
+              onClick={() => handleNavigation("/get-quote")}
+              className="text-left hover:text-primary transition"
+            >
               Get a Quote
-            </Link>
+            </button>
+
           </div>
         </div>
 

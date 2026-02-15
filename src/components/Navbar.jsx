@@ -29,7 +29,7 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto h-16 px-6 flex items-center justify-between">
 
         {/* LOGO */}
-        <Link to="/" onClick={() => setOpen(false)}>
+        <Link to="/" className="flex items-center" onClick={() => setOpen(false)}>
           <img
             src="/aps-photo.jpg"
             alt="Applied Style NJ logo"
@@ -52,6 +52,12 @@ export default function Navbar() {
             Contact
           </NavLink>
 
+          {/* 🔥 NEW GAME LINK */}
+          <NavLink to="/game" className={navLink}>
+            Play Game
+          </NavLink>
+
+          {/* PRIMARY CTA */}
           <Link
             to="/get-quote"
             className="ml-2 bg-primary text-black px-5 py-2 rounded-md font-semibold
@@ -72,7 +78,7 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* MOBILE MENU WITH SMOOTH ANIMATION */}
+      {/* MOBILE MENU */}
       <div
         className={`md:hidden transition-all duration-300 ease-in-out ${
           open
@@ -92,6 +98,10 @@ export default function Navbar() {
 
           <NavLink to="/contact" className={navLink}>
             Contact
+          </NavLink>
+
+          <NavLink to="/game" className={navLink}>
+            Play Game
           </NavLink>
 
           <Link

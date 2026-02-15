@@ -2,9 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* =========================
-   Global Base Styles
-========================= */
+/* =====================================================
+   GLOBAL BASE STYLES
+===================================================== */
+
 html,
 body {
   height: 100%;
@@ -19,9 +20,72 @@ body {
   min-height: 100%;
 }
 
-/* =========================
-   Reusable Form Inputs
-========================= */
+/* =====================================================
+   GLOBAL MOTION SYSTEM
+   (Unified animation language for entire site)
+===================================================== */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes successPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animation Utility Classes */
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out forwards;
+  will-change: transform, opacity;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+  will-change: opacity;
+}
+
+.animate-success {
+  animation: successPop 0.4s ease-out forwards;
+  will-change: transform, opacity;
+}
+
+/* Respect user reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-in,
+  .animate-success {
+    animation: none !important;
+  }
+}
+
+/* =====================================================
+   FORM SYSTEM (Global Input Design)
+===================================================== */
+
 .input {
   width: 100%;
   padding: 14px 16px;
@@ -40,23 +104,36 @@ body {
 
 .input:focus {
   border-color: #3b82f6;
-  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
 }
 
 textarea.input {
   resize: vertical;
 }
 
-/* =========================
-   Buttons
-========================= */
+/* Chrome Autofill Fix */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.05) inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: white;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* =====================================================
+   BUTTON SYSTEM (Global)
+===================================================== */
+
 .btn-primary {
   @apply inline-flex items-center justify-center
          bg-primary text-black
          px-8 py-3 rounded-lg
          font-semibold tracking-wide
-         transition duration-300
-         hover:bg-blue-500;
+         transition-all duration-300
+         hover:bg-blue-500 hover:scale-[1.03]
+         active:scale-[0.98];
 }
 
 .btn-outline {
@@ -64,18 +141,13 @@ textarea.input {
          border border-white
          px-8 py-3 rounded-lg
          text-white
-         transition duration-300
+         transition-all duration-300
          hover:bg-white hover:text-black;
 }
 
-/* =========================
-   Universal Card System
-========================= */
-
-/* Base Card (used everywhere) */
-/* =========================
-   Glass / Card UI (GLOBAL)
-========================= */
+/* =====================================================
+   GLASS / CARD SYSTEM (Universal)
+===================================================== */
 
 .card {
   @apply rounded-2xl
@@ -94,9 +166,10 @@ textarea.input {
          transition-all duration-300;
 }
 
-/* =========================
-   Typography Helpers
-========================= */
+/* =====================================================
+   TYPOGRAPHY HELPERS
+===================================================== */
+
 .section-title {
   @apply text-3xl md:text-4xl font-extrabold;
 }
@@ -105,9 +178,10 @@ textarea.input {
   @apply text-gray-400 leading-relaxed;
 }
 
-/* =========================
-   Navbar Stability
-========================= */
+/* =====================================================
+   NAVBAR STABILITY + INTERACTION
+===================================================== */
+
 header {
   will-change: transform;
 }
@@ -117,37 +191,8 @@ button {
   cursor: pointer;
 }
 
-/* =========================
-   Fade Animation
-========================= */
-.fade-in {
-  animation: fadeIn 0.4s ease-out both;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* =========================
-   Chrome Autofill Fix
-========================= */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.05) inset !important;
-  -webkit-text-fill-color: #ffffff !important;
-  caret-color: white;
-  transition: background-color 9999s ease-in-out 0s;
-}
-
-.input:not(:placeholder-shown) {
-  background: rgba(255, 255, 255, 0.05);
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.6);
+  outline-offset: 3px;
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
 export default function GetQuote() {
@@ -19,11 +19,17 @@ export default function GetQuote() {
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     if (loading || submitted) return;
+    if (!form.name || !form.phone || !form.service) return;
 
     setLoading(true);
     setError("");
@@ -32,9 +38,9 @@ export default function GetQuote() {
       name: form.name,
       phone: form.phone,
       email: form.email || "Not provided",
-      year: form.year,
-      make: form.make,
-      model: form.model,
+      year: form.year || "N/A",
+      make: form.make || "N/A",
+      model: form.model || "N/A",
       trim: form.trim || "N/A",
       service: form.service,
       source: "Website – Get a Quote",
@@ -69,7 +75,7 @@ export default function GetQuote() {
   };
 
   return (
-    <section className="min-h-screen bg-dark text-white pt-40 pb-32">
+    <section className="min-h-screen bg-dark text-white pt-36 pb-24 fade-in">
       <div className="max-w-4xl mx-auto px-6 space-y-14">
 
         {/* HEADER */}
@@ -79,123 +85,152 @@ export default function GetQuote() {
           transition={{ duration: 0.4 }}
           className="text-center space-y-3"
         >
-          <h1 className="text-4xl md:text-5xl font-extrabold">Get a Quote</h1>
+          <h1 className="text-4xl md:text-5xl font-extrabold">
+            Get a Quote
+          </h1>
           <p className="text-gray-400">
             Start by entering your contact info and vehicle details.
           </p>
         </motion.div>
 
-        {/* CONTACT INFO */}
-        <div className="card space-y-6">
-          <h2 className="text-xl font-semibold text-center">
-            Contact Information
-          </h2>
+        <form onSubmit={handleSubmit} className="space-y-12">
 
-          <div className="grid md:grid-cols-2 gap-4">
-            <input
-              name="name"
-              placeholder="Full Name"
-              value={form.name}
-              onChange={handleChange}
-              className="input"
-            />
-            <input
-              name="phone"
-              placeholder="Phone Number"
-              value={form.phone}
-              onChange={handleChange}
-              className="input"
-            />
-          </div>
+          {/* CONTACT INFO */}
+          <div className="card p-8 space-y-6 fade-up">
+            <h2 className="text-xl font-semibold text-center">
+              Contact Information
+            </h2>
 
-          <input
-            name="email"
-            placeholder="Email Address (optional)"
-            value={form.email}
-            onChange={handleChange}
-            className="input"
-          />
-        </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                name="name"
+                required
+                placeholder="Full Name"
+                value={form.name}
+                onChange={handleChange}
+                className="input"
+              />
 
-        {/* VEHICLE INFO */}
-        <div className="card space-y-6">
-          <h2 className="text-xl font-semibold text-center">
-            Vehicle Information
-          </h2>
+              <input
+                type="tel"
+                name="phone"
+                required
+                placeholder="Phone Number"
+                value={form.phone}
+                onChange={handleChange}
+                className="input"
+              />
+            </div>
 
-          <div className="grid md:grid-cols-4 gap-4">
             <input
-              name="year"
-              placeholder="Year"
-              value={form.year}
-              onChange={handleChange}
-              className="input"
-            />
-            <input
-              name="make"
-              placeholder="Make"
-              value={form.make}
-              onChange={handleChange}
-              className="input"
-            />
-            <input
-              name="model"
-              placeholder="Model"
-              value={form.model}
-              onChange={handleChange}
-              className="input"
-            />
-            <input
-              name="trim"
-              placeholder="Trim (optional)"
-              value={form.trim}
+              type="email"
+              name="email"
+              placeholder="Email Address (optional)"
+              value={form.email}
               onChange={handleChange}
               className="input"
             />
           </div>
-        </div>
 
-        {/* SERVICE */}
-        <div className="card space-y-6">
-          <h2 className="text-xl font-semibold text-center">Select Service</h2>
+          {/* VEHICLE INFO */}
+          <div className="card p-8 space-y-6 fade-up">
+            <h2 className="text-xl font-semibold text-center">
+              Vehicle Information
+            </h2>
 
-          <select
-            name="service"
-            value={form.service}
-            onChange={handleChange}
-            className="input cursor-pointer"
-          >
-            <option value="">Select a service</option>
-            <option value="Vinyl Wrap">Vinyl Wrap</option>
-            <option value="Window Tint">Window Tint</option>
-            <option value="Paint Protection Film">
-              Paint Protection Film
-            </option>
-            <option value="Detailing">Detailing</option>
-            <option value="Custom Work">Custom Work</option>
-          </select>
-        </div>
+            <div className="grid md:grid-cols-4 gap-4">
+              <input
+                name="year"
+                placeholder="Year"
+                value={form.year}
+                onChange={handleChange}
+                className="input"
+              />
+              <input
+                name="make"
+                placeholder="Make"
+                value={form.make}
+                onChange={handleChange}
+                className="input"
+              />
+              <input
+                name="model"
+                placeholder="Model"
+                value={form.model}
+                onChange={handleChange}
+                className="input"
+              />
+              <input
+                name="trim"
+                placeholder="Trim (optional)"
+                value={form.trim}
+                onChange={handleChange}
+                className="input"
+              />
+            </div>
+          </div>
 
-        {/* SUBMIT */}
-        <div className="text-center pt-4 space-y-3">
-          {!submitted ? (
-            <button
-              onClick={handleSubmit}
-              disabled={loading || !form.name || !form.phone || !form.service}
-              className="btn-primary px-16 py-4"
+          {/* SERVICE */}
+          <div className="card p-8 space-y-6 fade-up">
+            <h2 className="text-xl font-semibold text-center">
+              Select Service
+            </h2>
+
+            <select
+              name="service"
+              required
+              value={form.service}
+              onChange={handleChange}
+              className="input cursor-pointer"
             >
-              {loading ? "Sending..." : "Request Quote"}
-            </button>
-          ) : (
-            <p className="text-primary font-medium">
-              Thanks! We’ll reach out shortly to discuss your project.
-            </p>
-          )}
+              <option value="">Select a service</option>
+              <option value="Vinyl Wrap">Vinyl Wrap</option>
+              <option value="Window Tint">Window Tint</option>
+              <option value="Paint Protection Film">
+                Paint Protection Film
+              </option>
+              <option value="Detailing">Detailing</option>
+              <option value="Custom Work">Custom Work</option>
+            </select>
+          </div>
 
-          {error && (
-            <p className="text-red-400 text-sm">{error}</p>
-          )}
-        </div>
+          {/* SUBMIT */}
+          <div className="text-center pt-6 space-y-4">
+
+            <AnimatePresence mode="wait">
+              {!submitted ? (
+                <motion.button
+                  key="button"
+                  type="submit"
+                  disabled={loading}
+                  whileTap={{ scale: 0.97 }}
+                  className={`btn-primary px-16 py-4 ${
+                    loading ? "opacity-70 cursor-not-allowed" : ""
+                  }`}
+                >
+                  {loading ? "Sending..." : "Request Quote"}
+                </motion.button>
+              ) : (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-primary font-medium text-lg"
+                >
+                  ✅ Thanks! We’ll reach out shortly to discuss your project.
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {error && (
+              <p className="text-red-400 text-sm">
+                {error}
+              </p>
+            )}
+          </div>
+
+        </form>
 
       </div>
     </section>

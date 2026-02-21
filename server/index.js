@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import contactRoutes from "./routes/contact.js";
 import authRoutes from "./routes/auth.js";
 import adminRoutes from "./routes/admin.js";
+import quoteRoutes from "./routes/quote.js"; // ✅ NEW
 
 dotenv.config();
 
@@ -45,9 +46,17 @@ app.use(express.json());
    Routes
 ===================== */
 
+// Auth routes
 app.use("/api/auth", authRoutes);
+
+// Admin routes (protected)
 app.use("/api/admin", adminRoutes);
+
+// Contact (if you still want generic contact)
 app.use("/api/contact", contactRoutes);
+
+// ✅ NEW: Quote submission route
+app.use("/api/quotes", quoteRoutes);
 
 // Health check (Render uses this)
 app.get("/api/health", (req, res) => {

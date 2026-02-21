@@ -17,7 +17,6 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://applied-style-nj.vercel.app",   // Vercel frontend
   "https://appliedstylenj.com",
   "https://www.appliedstylenj.com",
 ];
@@ -25,7 +24,11 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (
+        !origin ||
+        allowedOrigins.includes(origin) ||
+        origin.endsWith(".vercel.app")
+      ) {
         callback(null, true);
       } else {
         console.error("❌ Blocked by CORS:", origin);

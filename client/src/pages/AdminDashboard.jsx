@@ -5,6 +5,8 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -16,7 +18,7 @@ export default function AdminDashboard() {
     async function fetchContacts() {
       try {
         const res = await fetch(
-          "http://localhost:5050/api/admin/contacts",
+          `${API_URL}/api/admin/contacts`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -25,7 +27,10 @@ export default function AdminDashboard() {
         );
 
         if (!res.ok) {
-          throw new Error("Unauthorized or server error");
+          // If unauthorized, clear token + redirect
+          localStorage.removeItem("token");
+          window.location.href = "/admin-login";
+          return;
         }
 
         const data = await res.json();

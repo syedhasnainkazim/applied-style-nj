@@ -7,12 +7,14 @@ export default function AdminLogin() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   async function handleLogin(e) {
     e.preventDefault();
     setError("");
 
     try {
-      const res = await fetch("http://localhost:5050/api/login", {
+      const res = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,10 +29,14 @@ export default function AdminLogin() {
         return;
       }
 
+      // Store JWT
       localStorage.setItem("token", data.token);
+
+      // Go to admin dashboard
       navigate("/admin");
     } catch (err) {
-      setError("Server error");
+      console.error("Login error:", err);
+      setError("Server error. Please try again.");
     }
   }
 

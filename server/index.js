@@ -14,9 +14,23 @@ const app = express();
 /* =====================
    Middleware
 ===================== */
+
+// Allow frontend domain in production
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://appliedstylenj.com",
+  "https://www.appliedstylenj.com",
+];
+
 app.use(
   cors({
-    origin: true, // 🔒 Lock to frontend URL in production
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
@@ -32,25 +46,21 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 
 // 🛠 Admin protected routes
-// GET /api/admin/contacts
-// PATCH /api/admin/contacts/:id
-// DELETE /api/admin/contacts/:id
 app.use("/api/admin", adminRoutes);
 
 // 📩 Public contact submission
-// POST /api/contact
 app.use("/api/contact", contactRoutes);
 
-// 🩺 Health check
+// 🩺 Health check (Render uses this)
 app.get("/api/health", (req, res) => {
-  res.json({ status: "ok" });
+  res.status(200).json({ status: "ok" });
 });
 
 /* =====================
    Database + Server
 ===================== */
 
-const PORT = process.env.PORT || 5050;
+const PORT = process.env.PORT || 10000;
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -58,9 +68,10 @@ mongoose
     console.log("✅ MongoDB connected");
 
     app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
+      console.log(`🚀 Server running on port ${PORT}`);
     });
   })
   .catch((err) => {
     console.error("❌ MongoDB connection error:", err);
+    process.exit(1);
   });

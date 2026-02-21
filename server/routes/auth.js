@@ -27,6 +27,11 @@ router.post("/login", async (req, res) => {
     console.error(err);
     res.status(500).json({ message: "Server error" });
   }
+
+  router.get("/debug-hash", (req, res) => {
+  const hash = bcrypt.hashSync("admin123", 10);
+  res.json({ hash });
+});
 });
 
 export default router;

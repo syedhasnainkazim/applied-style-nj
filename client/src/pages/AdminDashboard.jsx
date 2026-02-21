@@ -27,8 +27,9 @@ export default function AdminDashboard() {
       })
       .then((data) => setQuotes(data))
       .catch(() => navigate("/admin-login"));
-  }, []);
+  }, [API_URL, token, navigate]);
 
+  // ===== FILTER + SEARCH + SORT (Newest First) =====
   const filteredQuotes = useMemo(() => {
     return quotes
       .filter((q) => {
@@ -38,8 +39,12 @@ export default function AdminDashboard() {
       })
       .filter(
         (q) =>
-          q.name.toLowerCase().includes(search.toLowerCase()) ||
-          q.phone.includes(search)
+          q.name?.toLowerCase().includes(search.toLowerCase()) ||
+          q.phone?.includes(search)
+      )
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
       );
   }, [quotes, filter, search]);
 
@@ -81,20 +86,23 @@ export default function AdminDashboard() {
 
   return (
     <section className="min-h-screen bg-dark text-white p-8">
+      {/* ===== HEADER ===== */}
       <div className="flex justify-between items-center mb-10">
         <h1 className="text-4xl font-bold tracking-tight">
           Quote Dashboard
         </h1>
-        <button onClick={handleLogout} className="btn-danger">
+        <button
+          onClick={handleLogout}
+          className="px-5 py-2 rounded-lg bg-red-600 hover:bg-red-700 transition"
+        >
           Logout
         </button>
       </div>
 
       {/* ===== PREMIUM STATS CARDS ===== */}
       <div className="grid md:grid-cols-3 gap-8 mb-10">
-
         {/* Total */}
-        <div className="relative p-8 bg-gradient-to-br from-black via-neutral-900 to-black border border-white/10 rounded-2xl hover:border-primary/40 transition duration-300 shadow-lg">
+        <div className="relative p-8 bg-gradient-to-br from-black via-neutral-900 to-black border border-white/10 rounded-2xl hover:border-primary/40 transition shadow-lg">
           <div className="absolute inset-0 rounded-2xl bg-primary/5 blur-xl opacity-40"></div>
           <p className="text-gray-400 uppercase text-xs tracking-widest mb-2">
             Total Quotes
@@ -105,7 +113,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Unhandled */}
-        <div className="relative p-8 bg-gradient-to-br from-black via-neutral-900 to-black border border-yellow-500/20 rounded-2xl hover:border-yellow-500/40 transition duration-300 shadow-lg">
+        <div className="relative p-8 bg-gradient-to-br from-black via-neutral-900 to-black border border-yellow-500/20 rounded-2xl hover:border-yellow-500/40 transition shadow-lg">
           <div className="absolute inset-0 rounded-2xl bg-yellow-500/5 blur-xl opacity-40"></div>
           <p className="text-gray-400 uppercase text-xs tracking-widest mb-2">
             Unhandled
@@ -116,7 +124,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Handled */}
-        <div className="relative p-8 bg-gradient-to-br from-black via-neutral-900 to-black border border-green-500/20 rounded-2xl hover:border-green-500/40 transition duration-300 shadow-lg">
+        <div className="relative p-8 bg-gradient-to-br from-black via-neutral-900 to-black border border-green-500/20 rounded-2xl hover:border-green-500/40 transition shadow-lg">
           <div className="absolute inset-0 rounded-2xl bg-green-500/5 blur-xl opacity-40"></div>
           <p className="text-gray-400 uppercase text-xs tracking-widest mb-2">
             Handled
@@ -125,10 +133,9 @@ export default function AdminDashboard() {
             {handled}
           </p>
         </div>
-
       </div>
 
-      {/* ===== Filters + Search ===== */}
+      {/* ===== FILTERS + SEARCH ===== */}
       <div className="flex flex-col md:flex-row justify-between mb-6 gap-4">
         <div className="flex gap-3">
           {["all", "unhandled", "handled"].map((type) => (
@@ -155,7 +162,7 @@ export default function AdminDashboard() {
         />
       </div>
 
-      {/* ===== Quote List ===== */}
+      {/* ===== QUOTE LIST ===== */}
       <div className="space-y-5">
         {filteredQuotes.map((q) => (
           <div
@@ -165,20 +172,28 @@ export default function AdminDashboard() {
             <div>
               <h2 className="text-lg font-semibold">{q.name}</h2>
 
-<p className="text-gray-400 text-sm">{q.email}</p>
+              <p className="text-gray-400 text-sm">{q.email}</p>
 
-{/* Service Badge */}
-<div className="mt-2 mb-2">
-  <span className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary border border-primary/20 rounded-full">
-    {q.service}
-  </span>
-</div>
+              {/* Service Badge */}
+              <div className="mt-2 mb-2">
+                <span className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary border border-primary/20 rounded-full">
+                  {q.service || "Service Not Selected"}
+                </span>
+              </div>
 
-<p className="text-gray-400 text-sm">
-  {q.year} {q.make} {q.model}
-</p>
+              <p className="text-gray-400 text-sm">
+                {q.year} {q.make} {q.model}
+              </p>
 
-<p className="text-gray-400 text-sm">{q.phone}</p>
+              <p className="text-gray-400 text-sm">{q.phone}</p>
+
+              {/* Submitted Date */}
+              <p className="text-gray-500 text-xs mt-2">
+                Submitted{" "}
+                {q.createdAt
+                  ? new Date(q.createdAt).toLocaleDateString()
+                  : "—"}
+              </p>
             </div>
 
             <div className="flex items-center gap-6">
@@ -200,6 +215,13 @@ export default function AdminDashboard() {
                   Mark
                 </button>
               )}
+
+              <a
+                href={`mailto:${q.email}`}
+                className="text-purple-400 hover:text-purple-300 transition"
+              >
+                Email
+              </a>
 
               <button
                 onClick={() => handleDelete(q._id)}

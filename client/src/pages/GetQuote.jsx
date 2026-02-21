@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
 export default function GetQuote() {
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -47,6 +49,33 @@ export default function GetQuote() {
     };
 
     try {
+      /* ==========================
+         1️⃣ SAVE TO DATABASE
+      =========================== */
+      const dbResponse = await fetch(`${API_URL}/api/quotes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          email: form.email,
+          year: form.year,
+          make: form.make,
+          model: form.model,
+          service: form.service,
+          notes: `Trim: ${form.trim || "N/A"}`,
+        }),
+      });
+
+      if (!dbResponse.ok) {
+        throw new Error("Database save failed");
+      }
+
+      /* ==========================
+         2️⃣ SEND EMAIL
+      =========================== */
       await emailjs.send(
         "service_2l6pfdk",
         "template_5l6c2mn",
@@ -54,7 +83,11 @@ export default function GetQuote() {
         "m1ipLo2F1P5XqyR4I"
       );
 
+      /* ==========================
+         SUCCESS
+      =========================== */
       setSubmitted(true);
+
       setForm({
         name: "",
         phone: "",
@@ -65,6 +98,7 @@ export default function GetQuote() {
         trim: "",
         service: "",
       });
+
     } catch (err) {
       console.error(err);
       setError("Something went wrong. Please try again.");
@@ -139,34 +173,10 @@ export default function GetQuote() {
             </h2>
 
             <div className="grid md:grid-cols-4 gap-6 md:gap-4">
-              <input
-                name="year"
-                placeholder="Year"
-                value={form.year}
-                onChange={handleChange}
-                className="input"
-              />
-              <input
-                name="make"
-                placeholder="Make"
-                value={form.make}
-                onChange={handleChange}
-                className="input"
-              />
-              <input
-                name="model"
-                placeholder="Model"
-                value={form.model}
-                onChange={handleChange}
-                className="input"
-              />
-              <input
-                name="trim"
-                placeholder="Trim (optional)"
-                value={form.trim}
-                onChange={handleChange}
-                className="input"
-              />
+              <input name="year" placeholder="Year" value={form.year} onChange={handleChange} className="input" />
+              <input name="make" placeholder="Make" value={form.make} onChange={handleChange} className="input" />
+              <input name="model" placeholder="Model" value={form.model} onChange={handleChange} className="input" />
+              <input name="trim" placeholder="Trim (optional)" value={form.trim} onChange={handleChange} className="input" />
             </div>
           </div>
 
@@ -186,9 +196,7 @@ export default function GetQuote() {
               <option value="">Select a service</option>
               <option value="Vinyl Wrap">Vinyl Wrap</option>
               <option value="Window Tint">Window Tint</option>
-              <option value="Paint Protection Film">
-                Paint Protection Film
-              </option>
+              <option value="Paint Protection Film">Paint Protection Film</option>
               <option value="Detailing">Detailing</option>
               <option value="Custom Work">Custom Work</option>
             </select>

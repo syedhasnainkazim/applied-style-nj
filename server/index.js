@@ -42,13 +42,14 @@ app.use(
 app.use(express.json());
 
 /* =====================
-   API Routes
+   Routes
 ===================== */
 
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/contact", contactRoutes);
 
+// Health check (Render uses this)
 app.get("/api/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });

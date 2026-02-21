@@ -36,9 +36,10 @@ export default function AdminDashboard() {
         if (filter === "unhandled") return !q.handled;
         return true;
       })
-      .filter((q) =>
-        q.name.toLowerCase().includes(search.toLowerCase()) ||
-        q.phone.includes(search)
+      .filter(
+        (q) =>
+          q.name.toLowerCase().includes(search.toLowerCase()) ||
+          q.phone.includes(search)
       );
   }, [quotes, filter, search]);
 
@@ -80,27 +81,51 @@ export default function AdminDashboard() {
 
   return (
     <section className="min-h-screen bg-dark text-white p-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold">Quote Dashboard</h1>
+      <div className="flex justify-between items-center mb-10">
+        <h1 className="text-4xl font-bold tracking-tight">
+          Quote Dashboard
+        </h1>
         <button onClick={handleLogout} className="btn-danger">
           Logout
         </button>
       </div>
 
-      {/* ===== Stats Cards ===== */}
-      <div className="grid md:grid-cols-3 gap-6 mb-8">
-        <div className="p-6 bg-black border border-white/10 rounded-lg">
-          <p className="text-gray-400">Total Quotes</p>
-          <p className="text-3xl font-bold">{total}</p>
+      {/* ===== PREMIUM STATS CARDS ===== */}
+      <div className="grid md:grid-cols-3 gap-8 mb-10">
+
+        {/* Total */}
+        <div className="relative p-8 bg-gradient-to-br from-black via-neutral-900 to-black border border-white/10 rounded-2xl hover:border-primary/40 transition duration-300 shadow-lg">
+          <div className="absolute inset-0 rounded-2xl bg-primary/5 blur-xl opacity-40"></div>
+          <p className="text-gray-400 uppercase text-xs tracking-widest mb-2">
+            Total Quotes
+          </p>
+          <p className="text-5xl font-extrabold tracking-tight">
+            {total}
+          </p>
         </div>
-        <div className="p-6 bg-black border border-white/10 rounded-lg">
-          <p className="text-gray-400">Unhandled</p>
-          <p className="text-3xl font-bold text-yellow-400">{unhandled}</p>
+
+        {/* Unhandled */}
+        <div className="relative p-8 bg-gradient-to-br from-black via-neutral-900 to-black border border-yellow-500/20 rounded-2xl hover:border-yellow-500/40 transition duration-300 shadow-lg">
+          <div className="absolute inset-0 rounded-2xl bg-yellow-500/5 blur-xl opacity-40"></div>
+          <p className="text-gray-400 uppercase text-xs tracking-widest mb-2">
+            Unhandled
+          </p>
+          <p className="text-5xl font-extrabold text-yellow-400 tracking-tight">
+            {unhandled}
+          </p>
         </div>
-        <div className="p-6 bg-black border border-white/10 rounded-lg">
-          <p className="text-gray-400">Handled</p>
-          <p className="text-3xl font-bold text-green-400">{handled}</p>
+
+        {/* Handled */}
+        <div className="relative p-8 bg-gradient-to-br from-black via-neutral-900 to-black border border-green-500/20 rounded-2xl hover:border-green-500/40 transition duration-300 shadow-lg">
+          <div className="absolute inset-0 rounded-2xl bg-green-500/5 blur-xl opacity-40"></div>
+          <p className="text-gray-400 uppercase text-xs tracking-widest mb-2">
+            Handled
+          </p>
+          <p className="text-5xl font-extrabold text-green-400 tracking-tight">
+            {handled}
+          </p>
         </div>
+
       </div>
 
       {/* ===== Filters + Search ===== */}
@@ -110,10 +135,10 @@ export default function AdminDashboard() {
             <button
               key={type}
               onClick={() => setFilter(type)}
-              className={`px-4 py-2 rounded border ${
+              className={`px-5 py-2 rounded-lg border transition ${
                 filter === type
-                  ? "bg-primary text-white"
-                  : "border-white/20 text-gray-400"
+                  ? "bg-primary text-white border-primary shadow-md"
+                  : "border-white/20 text-gray-400 hover:border-white/40 hover:text-white"
               }`}
             >
               {type.charAt(0).toUpperCase() + type.slice(1)}
@@ -126,16 +151,16 @@ export default function AdminDashboard() {
           placeholder="Search by name or phone..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="px-4 py-2 bg-black border border-white/20 rounded"
+          className="px-5 py-2 bg-black border border-white/20 rounded-lg focus:outline-none focus:border-primary transition w-full md:w-80"
         />
       </div>
 
-      {/* ===== Table ===== */}
-      <div className="space-y-4">
+      {/* ===== Quote List ===== */}
+      <div className="space-y-5">
         {filteredQuotes.map((q) => (
           <div
             key={q._id}
-            className="p-6 bg-black border border-white/10 rounded-lg flex justify-between items-center"
+            className="p-6 bg-black border border-white/10 rounded-xl hover:border-white/20 transition flex justify-between items-center"
           >
             <div>
               <h2 className="text-lg font-semibold">{q.name}</h2>
@@ -148,10 +173,10 @@ export default function AdminDashboard() {
 
             <div className="flex items-center gap-6">
               <span
-                className={`px-3 py-1 rounded-full text-sm ${
+                className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide ${
                   q.handled
-                    ? "bg-green-500/20 text-green-400"
-                    : "bg-yellow-500/20 text-yellow-400"
+                    ? "bg-green-500/10 text-green-400 border border-green-500/20"
+                    : "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20"
                 }`}
               >
                 {q.handled ? "Handled" : "Unhandled"}
@@ -160,7 +185,7 @@ export default function AdminDashboard() {
               {!q.handled && (
                 <button
                   onClick={() => handleMark(q._id)}
-                  className="text-blue-400 hover:text-blue-300"
+                  className="text-blue-400 hover:text-blue-300 transition"
                 >
                   Mark
                 </button>
@@ -168,7 +193,7 @@ export default function AdminDashboard() {
 
               <button
                 onClick={() => handleDelete(q._id)}
-                className="text-red-500 hover:text-red-400"
+                className="text-red-500 hover:text-red-400 transition"
               >
                 Delete
               </button>

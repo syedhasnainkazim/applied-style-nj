@@ -164,11 +164,21 @@ export default function AdminDashboard() {
           >
             <div>
               <h2 className="text-lg font-semibold">{q.name}</h2>
-              <p className="text-gray-400 text-sm">{q.email}</p>
-              <p className="text-gray-400 text-sm">
-                {q.year} {q.make} {q.model}
-              </p>
-              <p className="text-gray-400 text-sm">{q.phone}</p>
+
+<p className="text-gray-400 text-sm">{q.email}</p>
+
+{/* Service Badge */}
+<div className="mt-2 mb-2">
+  <span className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary border border-primary/20 rounded-full">
+    {q.service}
+  </span>
+</div>
+
+<p className="text-gray-400 text-sm">
+  {q.year} {q.make} {q.model}
+</p>
+
+<p className="text-gray-400 text-sm">{q.phone}</p>
             </div>
 
             <div className="flex items-center gap-6">

@@ -1,74 +1,52 @@
 import express from "express";
-import mongoose from "mongoose";
-import Contact from "../models/Contact.js";
+import Quote from "../models/Quote.js";
 import { verifyToken, requireAdmin } from "../middleware/auth.js";
 
 const router = express.Router();
 
-/* ==================================================
-   GET ALL CONTACTS
-   GET /api/admin/contacts
-================================================== */
-router.get("/contacts", verifyToken, requireAdmin, async (req, res) => {
+/* ==========================================
+   GET ALL QUOTES
+   GET /api/admin/quotes
+========================================== */
+router.get("/quotes", verifyToken, requireAdmin, async (req, res) => {
   try {
-    const contacts = await Contact.find().sort({ createdAt: -1 });
-    res.json(contacts);
+    const quotes = await Quote.find().sort({ createdAt: -1 });
+    res.json(quotes);
   } catch (err) {
-    console.error("Fetch contacts error:", err);
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 });
 
-/* ==================================================
-   DELETE CONTACT
-   DELETE /api/admin/contacts/:id
-================================================== */
-router.delete("/contacts/:id", verifyToken, requireAdmin, async (req, res) => {
+/* ==========================================
+   DELETE QUOTE
+   DELETE /api/admin/quotes/:id
+========================================== */
+router.delete("/quotes/:id", verifyToken, requireAdmin, async (req, res) => {
   try {
-    const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid contact ID" });
-    }
-
-    const deleted = await Contact.findByIdAndDelete(id);
-
-    if (!deleted) {
-      return res.status(404).json({ message: "Contact not found" });
-    }
-
-    res.json({ message: "Contact deleted successfully" });
+    await Quote.findByIdAndDelete(req.params.id);
+    res.json({ message: "Quote deleted" });
   } catch (err) {
-    console.error("Delete contact error:", err);
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 });
 
-/* ==================================================
-   MARK CONTACT AS HANDLED
-   PATCH /api/admin/contacts/:id
-================================================== */
-router.patch("/contacts/:id", verifyToken, requireAdmin, async (req, res) => {
+/* ==========================================
+   MARK QUOTE HANDLED
+   PATCH /api/admin/quotes/:id
+========================================== */
+router.patch("/quotes/:id", verifyToken, requireAdmin, async (req, res) => {
   try {
-    const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid contact ID" });
-    }
-
-    const updated = await Contact.findByIdAndUpdate(
-      id,
+    const updated = await Quote.findByIdAndUpdate(
+      req.params.id,
       { handled: true },
       { new: true }
     );
 
-    if (!updated) {
-      return res.status(404).json({ message: "Contact not found" });
-    }
-
     res.json(updated);
   } catch (err) {
-    console.error("Update contact error:", err);
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 });

@@ -1,0 +1,410 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================================================
+   GLOBAL BASE STYLES
+===================================================== */
+
+html,
+body {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+/* Prevent horizontal scroll on mobile */
+body {
+  @apply bg-black text-white antialiased;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100%;
+}
+
+/* =====================================================
+   MOBILE STABILITY FIXES (Only affects small screens)
+===================================================== */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================================================
+   GLOBAL BASE STYLES
+===================================================== */
+
+html,
+body {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+/* Prevent horizontal scroll on mobile */
+body {
+  @apply bg-black text-white antialiased;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100%;
+}
+
+/* =====================================================
+   MOBILE STABILITY FIXES (Only affects small screens)
+===================================================== */
+
+@media (max-width: 767px) {
+
+  /* Prevent header clipping under fixed navbar */
+  main,
+  section {
+    scroll-margin-top: 80px;
+  }
+
+  /* Improve mobile heading readability */
+  h1 {
+    line-height: 1.2;
+  }
+
+  h2 {
+    line-height: 1.25;
+  }
+
+}
+
+/* =====================================================
+   GLOBAL MOTION SYSTEM
+===================================================== */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes successPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out forwards;
+  will-change: transform, opacity;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+  will-change: opacity;
+}
+
+.animate-success {
+  animation: successPop 0.4s ease-out forwards;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-in,
+  .animate-success {
+    animation: none !important;
+  }
+}
+
+/* =====================================================
+   FORM SYSTEM
+===================================================== */
+
+.input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+}
+
+textarea.input {
+  resize: vertical;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.05) inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: white;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* =====================================================
+   BUTTON SYSTEM
+===================================================== */
+
+.btn-primary {
+  @apply inline-flex items-center justify-center
+         bg-primary text-black
+         px-8 py-3 rounded-lg
+         font-semibold tracking-wide
+         transition-all duration-300
+         hover:bg-blue-500 hover:scale-[1.03]
+         active:scale-[0.98];
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center
+         border border-white
+         px-8 py-3 rounded-lg
+         text-white
+         transition-all duration-300
+         hover:bg-white hover:text-black;
+}
+
+/* =====================================================
+   CARD SYSTEM
+===================================================== */
+
+.card {
+  @apply rounded-2xl
+         bg-white/5
+         border border-white/10
+         backdrop-blur
+         shadow-lg
+         transition-all duration-300 ease-out;
+}
+
+.card-hover {
+  @apply hover:bg-white/10
+         hover:shadow-xl
+         hover:-translate-y-1
+         hover:border-primary/40
+         transition-all duration-300;
+}
+
+/* =====================================================
+   TYPOGRAPHY HELPERS
+===================================================== */
+
+.section-title {
+  @apply text-3xl md:text-4xl font-extrabold;
+}
+
+.section-subtitle {
+  @apply text-gray-400 leading-relaxed;
+}
+
+/* =====================================================
+   NAVBAR STABILITY
+===================================================== */
+
+header {
+  will-change: transform;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.6);
+  outline-offset: 3px;
+}
+
+/* =====================================================
+   GLOBAL MOTION SYSTEM
+===================================================== */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes successPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out forwards;
+  will-change: transform, opacity;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+  will-change: opacity;
+}
+
+.animate-success {
+  animation: successPop 0.4s ease-out forwards;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-in,
+  .animate-success {
+    animation: none !important;
+  }
+}
+
+/* =====================================================
+   FORM SYSTEM
+===================================================== */
+
+.input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+}
+
+textarea.input {
+  resize: vertical;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.05) inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: white;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* =====================================================
+   BUTTON SYSTEM
+===================================================== */
+
+.btn-primary {
+  @apply inline-flex items-center justify-center
+         bg-primary text-black
+         px-8 py-3 rounded-lg
+         font-semibold tracking-wide
+         transition-all duration-300
+         hover:bg-blue-500 hover:scale-[1.03]
+         active:scale-[0.98];
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center
+         border border-white
+         px-8 py-3 rounded-lg
+         text-white
+         transition-all duration-300
+         hover:bg-white hover:text-black;
+}
+
+/* =====================================================
+   CARD SYSTEM
+===================================================== */
+
+.card {
+  @apply rounded-2xl
+         bg-white/5
+         border border-white/10
+         backdrop-blur
+         shadow-lg
+         transition-all duration-300 ease-out;
+}
+
+.card-hover {
+  @apply hover:bg-white/10
+         hover:shadow-xl
+         hover:-translate-y-1
+         hover:border-primary/40
+         transition-all duration-300;
+}
+
+/* =====================================================
+   TYPOGRAPHY HELPERS
+===================================================== */
+
+.section-title {
+  @apply text-3xl md:text-4xl font-extrabold;
+}
+
+.section-subtitle {
+  @apply text-gray-400 leading-relaxed;
+}
+
+/* =====================================================
+   NAVBAR STABILITY
+===================================================== */
+
+header {
+  will-change: transform;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.6);
+  outline-offset: 3px;
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "vinyl-wraps",
+    "title": "Vinyl Wraps",
+    "heroImage": "/images/suprawrap.png",
+    "heroGlow": "indigo",
+    "description": "Full and partial wraps using premium materials for bold color changes and complete vehicle transformations.",
+    "longDescription": "Whether you're going for a sleek matte finish or a vibrant gloss color shift, our installations are clean, precise, and built to last.",
+    "bullets": [
+      "Full vehicle wraps",
+      "Color change wraps",
+      "Accent & roof wraps",
+      "Commercial branding wraps"
+    ],
+    "icon": "palette"
+  },
+  {
+    "slug": "window-tint",
+    "title": "Window Tint",
+    "heroImage": "/images/percent.jpg",
+    "heroGlow": "blue",
+    "description": "High-performance ceramic window tint designed for heat rejection, UV protection, glare reduction, and improved privacy.",
+    "longDescription": "We install premium-grade films that enhance comfort while protecting your vehicle’s interior and maintaining a clean, factory-level appearance.",
+    "bullets": [
+      "Ceramic tint technology",
+      "Superior UV & heat rejection",
+      "Legal shade options available",
+      "Lifetime durability"
+    ],
+    "icon": "sun"
+  },
+  {
+    "slug": "paint-protection-film",
+    "title": "Paint Protection Film",
+    "heroImage": "/images/ppf.jpg",
+    "heroGlow": "blue",
+    "description": "Invisible protection to guard your paint from chips, scratches, and road debris.",
+    "longDescription": "Our precision-installed paint protection film preserves your vehicle’s finish while maintaining a flawless factory appearance.",
+    "bullets": [
+      "Front-end protection",
+      "Full-body PPF",
+      "Self-healing film",
+      "High-impact resistance"
+    ],
+    "icon": "shield"
+  },
+  {
+    "slug": "ceramic-coating",
+    "title": "Ceramic Coating",
+    "heroImage": "/images/ceramiccoating.jpg",
+    "heroGlow": "blue",
+    "description": "Advanced nano-ceramic protection that enhances gloss, depth, and long-term durability.",
+    "longDescription": "Our professional-grade ceramic coatings create a hydrophobic surface that repels water, dirt, and contaminants — keeping your vehicle looking showroom-ready.",
+    "bullets": [
+      "High-gloss finish enhancement",
+      "Hydrophobic water repellency",
+      "UV & oxidation resistance",
+      "Long-term surface durability"
+    ],
+    "icon": "sparkles"
+  },
+  {
+    "slug": "detailing",
+    "title": "Detailing Services",
+    "heroImage": "/images/detailing.jpg",
+    "heroGlow": "white",
+    "description": "Professional interior and exterior detailing designed to restore your vehicle to showroom condition.",
+    "longDescription": "From deep interior cleaning to paint correction and exterior polish, our detailing services enhance appearance, preserve value, and protect your investment.",
+    "bullets": [
+      "Interior deep cleaning & conditioning",
+      "Exterior wash & decontamination",
+      "Paint correction & polishing",
+      "Engine bay detailing"
+    ],
+    "icon": "car"
+  },
+  {
+    "slug": "custom-projects",
+    "title": "Custom Projects",
+    "heroImage": "/images/custom.jpg",
+    "heroGlow": "indigo",
+    "description": "One-off projects tailored to your vision with specialty finishes.",
+    "longDescription": "We bring creative automotive concepts to life through precision craftsmanship, premium materials, and detailed customization.",
+    "bullets": [
+      "Custom accents",
+      "Branding & graphics",
+      "Specialty finishes",
+      "Unique design concepts"
+    ],
+    "icon": "wrench"
+  }
+]

@@ -5,6 +5,7 @@ export default function AdminDashboard() {
   const [quotes, setQuotes] = useState([]);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
+  const [serviceFilter, setServiceFilter] = useState("all");
 
   const navigate = useNavigate();
   const API_URL = import.meta.env.VITE_API_URL;
@@ -29,7 +30,7 @@ export default function AdminDashboard() {
       .catch(() => navigate("/admin-login"));
   }, [API_URL, token, navigate]);
 
-  // ===== FILTER + SEARCH + SORT (Newest First) =====
+  // ===== FILTER + SEARCH + SERVICE + SORT =====
   const filteredQuotes = useMemo(() => {
     return quotes
       .filter((q) => {
@@ -37,16 +38,19 @@ export default function AdminDashboard() {
         if (filter === "unhandled") return !q.handled;
         return true;
       })
-      .filter(
-        (q) =>
-          q.name?.toLowerCase().includes(search.toLowerCase()) ||
-          q.phone?.includes(search)
+      .filter((q) => {
+        if (serviceFilter === "all") return true;
+        return q.service === serviceFilter;
+      })
+      .filter((q) =>
+        q.name?.toLowerCase().includes(search.toLowerCase()) ||
+        q.phone?.includes(search)
       )
       .sort(
         (a, b) =>
           new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
       );
-  }, [quotes, filter, search]);
+  }, [quotes, filter, serviceFilter, search]);
 
   const total = quotes.length;
   const unhandled = quotes.filter((q) => !q.handled).length;
@@ -86,11 +90,13 @@ export default function AdminDashboard() {
 
   return (
     <section className="min-h-screen bg-dark text-white p-8">
+
       {/* ===== HEADER ===== */}
       <div className="flex justify-between items-center mb-10">
         <h1 className="text-4xl font-bold tracking-tight">
           Quote Dashboard
         </h1>
+
         <button
           onClick={handleLogout}
           className="px-5 py-2 rounded-lg bg-red-600 hover:bg-red-700 transition"
@@ -99,45 +105,19 @@ export default function AdminDashboard() {
         </button>
       </div>
 
-      {/* ===== PREMIUM STATS CARDS ===== */}
+      {/* ===== STATS ===== */}
       <div className="grid md:grid-cols-3 gap-8 mb-10">
-        {/* Total */}
-        <div className="relative p-8 bg-gradient-to-br from-black via-neutral-900 to-black border border-white/10 rounded-2xl hover:border-primary/40 transition shadow-lg">
-          <div className="absolute inset-0 rounded-2xl bg-primary/5 blur-xl opacity-40"></div>
-          <p className="text-gray-400 uppercase text-xs tracking-widest mb-2">
-            Total Quotes
-          </p>
-          <p className="text-5xl font-extrabold tracking-tight">
-            {total}
-          </p>
-        </div>
-
-        {/* Unhandled */}
-        <div className="relative p-8 bg-gradient-to-br from-black via-neutral-900 to-black border border-yellow-500/20 rounded-2xl hover:border-yellow-500/40 transition shadow-lg">
-          <div className="absolute inset-0 rounded-2xl bg-yellow-500/5 blur-xl opacity-40"></div>
-          <p className="text-gray-400 uppercase text-xs tracking-widest mb-2">
-            Unhandled
-          </p>
-          <p className="text-5xl font-extrabold text-yellow-400 tracking-tight">
-            {unhandled}
-          </p>
-        </div>
-
-        {/* Handled */}
-        <div className="relative p-8 bg-gradient-to-br from-black via-neutral-900 to-black border border-green-500/20 rounded-2xl hover:border-green-500/40 transition shadow-lg">
-          <div className="absolute inset-0 rounded-2xl bg-green-500/5 blur-xl opacity-40"></div>
-          <p className="text-gray-400 uppercase text-xs tracking-widest mb-2">
-            Handled
-          </p>
-          <p className="text-5xl font-extrabold text-green-400 tracking-tight">
-            {handled}
-          </p>
-        </div>
+        <StatCard title="Total Quotes" value={total} />
+        <StatCard title="Unhandled" value={unhandled} color="yellow" />
+        <StatCard title="Handled" value={handled} color="green" />
       </div>
 
-      {/* ===== FILTERS + SEARCH ===== */}
+      {/* ===== FILTERS ===== */}
       <div className="flex flex-col md:flex-row justify-between mb-6 gap-4">
-        <div className="flex gap-3">
+
+        <div className="flex flex-wrap gap-3 items-center">
+
+          {/* Status Buttons */}
           {["all", "unhandled", "handled"].map((type) => (
             <button
               key={type}
@@ -151,8 +131,22 @@ export default function AdminDashboard() {
               {type.charAt(0).toUpperCase() + type.slice(1)}
             </button>
           ))}
+
+          {/* Service Dropdown */}
+          <select
+            value={serviceFilter}
+            onChange={(e) => setServiceFilter(e.target.value)}
+            className="px-4 py-2 bg-black border border-white/20 rounded-lg text-gray-300 focus:outline-none focus:border-primary"
+          >
+            <option value="all">All Services</option>
+            <option value="Window Tint">Window Tint</option>
+            <option value="Vinyl Wrap">Vinyl Wrap</option>
+            <option value="Paint Protection Film">Paint Protection Film</option>
+            <option value="Detailing">Detailing</option>
+          </select>
         </div>
 
+        {/* Search */}
         <input
           type="text"
           placeholder="Search by name or phone..."
@@ -162,7 +156,7 @@ export default function AdminDashboard() {
         />
       </div>
 
-      {/* ===== QUOTE LIST ===== */}
+      {/* ===== LIST ===== */}
       <div className="space-y-5">
         {filteredQuotes.map((q) => (
           <div
@@ -171,10 +165,8 @@ export default function AdminDashboard() {
           >
             <div>
               <h2 className="text-lg font-semibold">{q.name}</h2>
-
               <p className="text-gray-400 text-sm">{q.email}</p>
 
-              {/* Service Badge */}
               <div className="mt-2 mb-2">
                 <span className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary border border-primary/20 rounded-full">
                   {q.service || "Service Not Selected"}
@@ -187,7 +179,6 @@ export default function AdminDashboard() {
 
               <p className="text-gray-400 text-sm">{q.phone}</p>
 
-              {/* Submitted Date */}
               <p className="text-gray-500 text-xs mt-2">
                 Submitted{" "}
                 {q.createdAt
@@ -234,5 +225,29 @@ export default function AdminDashboard() {
         ))}
       </div>
     </section>
+  );
+}
+
+/* ===== STAT CARD COMPONENT ===== */
+function StatCard({ title, value, color }) {
+  const colorMap = {
+    yellow: "text-yellow-400 border-yellow-500/20",
+    green: "text-green-400 border-green-500/20",
+  };
+
+  return (
+    <div
+      className={`relative p-8 bg-gradient-to-br from-black via-neutral-900 to-black border border-white/10 rounded-2xl hover:border-primary/40 transition shadow-lg ${
+        color ? colorMap[color] : ""
+      }`}
+    >
+      <div className="absolute inset-0 rounded-2xl bg-primary/5 blur-xl opacity-40"></div>
+      <p className="text-gray-400 uppercase text-xs tracking-widest mb-2">
+        {title}
+      </p>
+      <p className="text-5xl font-extrabold tracking-tight">
+        {value}
+      </p>
+    </div>
   );
 }

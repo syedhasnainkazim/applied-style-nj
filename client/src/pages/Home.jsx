@@ -17,78 +17,75 @@ import hoodwrap from "../assets/images/hoodwrap.jpg";
 
 export default function Home() {
   const gallery = [
-    { src: tint1, label: "Tints" },
+    { src: tint1, label: "Window Tint" },
     { src: vinyl1, label: "Vinyl Wrap" },
-    { src: ceramic1, label: "Ceramic Coating" },
-    { src: tint2, label: "Tints" },
-    { src: detail911, label: "Detail" },
-    { src: ceramic2, label: "Ceramic Coating" },
-    { src: tint5, label: "Tints" },
-    { src: m5detail, label: "Detail" },
+    { src: ceramic1, label: "Paint Protection Film" },
+    { src: tint2, label: "Window Tint" },
+    { src: detail911, label: "Detailing" },
+    { src: ceramic2, label: "Paint Protection Film" },
+    { src: tint5, label: "Window Tint" },
+    { src: m5detail, label: "Detailing" },
     { src: hoodwrap, label: "Vinyl Wrap" },
   ];
 
   return (
     <section className="bg-dark text-white overflow-x-hidden">
 
-      {/* HERO */}
-      <div className="min-h-[90vh] md:min-h-[80vh] flex items-center pt-28 md:pt-0 pb-12 md:pb-0">
-        <div className="max-w-6xl mx-auto px-6 w-full grid md:grid-cols-2 gap-14 md:gap-16 lg:gap-24 items-center">
+      {/* ================= HERO ================= */}
+      <div className="min-h-[90vh] flex items-center pt-28 md:pt-0 pb-16">
+        <div className="max-w-6xl mx-auto px-6 w-full grid md:grid-cols-2 gap-16 items-center">
 
           {/* LEFT CONTENT */}
           <Reveal>
-            <div className="max-w-3xl space-y-6 text-center md:text-left">
-              <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-extrabold leading-snug md:leading-tight">
-                Applied Style NJ.
+            <div className="space-y-6 text-center md:text-left">
+
+              <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
+                Applied Style NJ
               </h1>
 
-              <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
-                Located in Edison, New Jersey, we are an automotive restyling shop
-                with over <span className="text-white font-semibold">10+ years of experience</span>.
+              <h2 className="text-lg md:text-xl text-gray-300 font-medium">
+                Window Tint, Vinyl Wrap & Paint Protection Film in Edison, NJ.
+              </h2>
+
+              <p className="text-gray-400 leading-relaxed max-w-xl mx-auto md:mx-0">
+                Premium materials. Precision installation. Showroom-quality results trusted by NJ drivers.
               </p>
 
-              <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
-                Transform your vehicle with expert tint, wraps, and detailing.
-                Serving Edison & surrounding NJ areas.
-                <br /><br />
-                Premium materials. Flawless results. Built to last.
-              </p>
+              {/* TRUST SIGNALS */}
+              <div className="flex flex-wrap justify-center md:justify-start gap-4 text-sm text-gray-400 pt-2">
+                <span>✔ 10+ Years Experience</span>
+                <span>✔ Premium Film Brands</span>
+                <span>✔ Flawless Installation</span>
+              </div>
 
               {/* CTA BUTTONS */}
-              <div className="pt-8 md:pt-6 flex flex-col sm:flex-row gap-4 sm:gap-6">
-                <Link to="/get-quote" className="btn-primary w-full sm:w-auto">
-                  Get a Quote
+              <div className="pt-6 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <Link to="/get-quote" className="btn-primary">
+                  Get a Free Quote
                 </Link>
 
-                <Link to="/services" className="btn-outline w-full sm:w-auto">
+                <Link to="/services" className="btn-outline">
                   View Services
                 </Link>
               </div>
+
             </div>
           </Reveal>
 
           {/* RIGHT IMAGE */}
           <Reveal delay={0.2}>
-            <div className="flex justify-center relative w-full mt-14 md:mt-0">
+            <div className="flex justify-center relative">
 
-              {/* Blue Glow */}
-              <div className="absolute w-[350px] h-[350px] md:w-[600px] md:h-[600px] rounded-full 
-                              bg-blue-500/25 blur-[120px] md:blur-[160px] 
+              <div className="absolute w-[500px] h-[500px] rounded-full 
+                              bg-blue-500/25 blur-[150px] 
                               top-1/2 left-1/2 
-                              -translate-x-1/2 -translate-y-1/2">
-              </div>
-
-              {/* Indigo Glow */}
-              <div className="absolute w-[250px] h-[250px] md:w-[450px] md:h-[450px] rounded-full 
-                              bg-indigo-500/20 blur-[100px] md:blur-[140px] 
-                              top-[55%] left-[55%] 
                               -translate-x-1/2 -translate-y-1/2">
               </div>
 
               <img
                 src={hero}
                 alt="Performance vehicle"
-                className="relative z-10 w-full max-w-md md:max-w-none max-h-[420px] md:max-h-[520px] object-contain drop-shadow-[0_40px_60px_rgba(0,0,0,0.7)]"
+                className="relative z-10 w-full max-w-lg object-contain drop-shadow-[0_40px_60px_rgba(0,0,0,0.7)]"
               />
             </div>
           </Reveal>
@@ -96,21 +93,21 @@ export default function Home() {
         </div>
       </div>
 
-      {/* MAIN CONTENT */}
-      <div className="max-w-6xl mx-auto px-6 pb-28 md:pb-32 space-y-24 md:space-y-28">
+      {/* ================= MAIN CONTENT ================= */}
+      <div className="max-w-6xl mx-auto px-6 pb-32 space-y-28">
 
-        {/* GALLERY */}
-        <Reveal delay={0.2}>
+        {/* ================= OUR WORK ================= */}
+        <Reveal>
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold mb-10 md:mb-10 text-center">
+            <h2 className="text-3xl font-bold text-center mb-12">
               Our Work
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
               {gallery.map((item, index) => (
                 <div
                   key={index}
-                  className="card card-hover relative overflow-hidden group aspect-square cursor-pointer"
+                  className="card card-hover relative overflow-hidden group aspect-square"
                 >
                   <img
                     src={item.src}
@@ -118,12 +115,10 @@ export default function Home() {
                     className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
                   />
 
-                  <div className="absolute top-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition duration-300">
-                    <div className="px-4 py-2 rounded-full bg-black/70 backdrop-blur-md border border-white/10 shadow-lg">
-                      <span className="text-white text-sm font-semibold">
-                        {item.label}
-                      </span>
-                    </div>
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                    <span className="px-4 py-2 rounded-full bg-black/70 border border-white/10 text-sm font-semibold">
+                      {item.label}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -131,32 +126,51 @@ export default function Home() {
           </div>
         </Reveal>
 
-        {/* EXPERIENCE CARDS */}
-        <Reveal delay={0.3}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-8">
+        {/* ================= WHY CHOOSE US ================= */}
+        <Reveal delay={0.2}>
+          <div className="grid md:grid-cols-3 gap-8">
+
             {[
               {
                 title: "10+ Years Experience",
-                text: "A decade of real-world automotive restyling experience.",
+                text: "Over a decade of hands-on automotive restyling expertise across New Jersey.",
               },
               {
-                title: "Attention to Detail",
-                text: "Clean edges and flawless finishes on every vehicle.",
+                title: "Precision Installation",
+                text: "Clean edges, seamless wraps, and flawless film application every time.",
               },
               {
-                title: "Customer Satisfaction",
-                text: "Honest communication and quality craftsmanship.",
+                title: "Premium Materials",
+                text: "We use high-quality films and products designed to protect and last.",
               },
             ].map((item) => (
-              <div key={item.title} className="card card-hover p-8 md:p-6">
-                <h3 className="text-lg sm:text-xl font-semibold mb-4 md:mb-3">
+              <div key={item.title} className="card card-hover p-8 text-center">
+                <h3 className="text-xl font-semibold mb-4">
                   {item.title}
                 </h3>
-                <p className="text-sm text-gray-400 leading-relaxed">
+                <p className="text-gray-400 text-sm leading-relaxed">
                   {item.text}
                 </p>
               </div>
             ))}
+
+          </div>
+        </Reveal>
+
+        {/* ================= FINAL CTA ================= */}
+        <Reveal delay={0.3}>
+          <div className="text-center space-y-6 pt-10">
+            <h2 className="text-3xl font-bold">
+              Ready to Transform Your Vehicle?
+            </h2>
+
+            <p className="text-gray-400 max-w-xl mx-auto">
+              Get a fast, free quote and see why drivers across Edison and surrounding NJ areas trust Applied Style NJ.
+            </p>
+
+            <Link to="/get-quote" className="btn-primary">
+              Get Your Free Quote Today
+            </Link>
           </div>
         </Reveal>
 

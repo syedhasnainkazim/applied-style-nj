@@ -19,10 +19,10 @@ export default function Home() {
   const gallery = [
     { src: tint1, label: "Window Tint" },
     { src: vinyl1, label: "Vinyl Wrap" },
-    { src: ceramic1, label: "Paint Protection Film" },
+    { src: ceramic1, label: "Ceramic Coating" },
     { src: tint2, label: "Window Tint" },
     { src: detail911, label: "Detailing" },
-    { src: ceramic2, label: "Paint Protection Film" },
+    { src: ceramic2, label: "Ceramic Coating" },
     { src: tint5, label: "Window Tint" },
     { src: m5detail, label: "Detailing" },
     { src: hoodwrap, label: "Vinyl Wrap" },
@@ -37,27 +37,33 @@ export default function Home() {
 
           {/* LEFT CONTENT */}
           <Reveal>
-            <div className="space-y-6 text-center md:text-left">
+            <div className="text-center md:text-left">
 
-              <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
-                Applied Style NJ
-              </h1>
+              {/* Headline Group (Tight) */}
+              <div className="space-y-3">
+                <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
+                  Applied Style NJ
+                </h1>
 
-              <h2 className="text-lg md:text-xl text-gray-300 font-medium">
-                Window Tint, Vinyl Wrap & Paint Protection Film in Edison, NJ.
-              </h2>
+                <h2 className="text-lg md:text-xl text-gray-300 font-medium">
+                  Window Tint, Vinyl Wrap & Paint Protection Film in Edison, NJ.
+                </h2>
+              </div>
 
-              <p className="text-gray-400 leading-relaxed max-w-xl mx-auto md:mx-0">
+              {/* Supporting Copy (Medium spacing) */}
+              <p className="mt-5 text-gray-400 leading-relaxed max-w-xl mx-auto md:mx-0">
                 Premium materials. Precision installation. Showroom-quality results trusted by NJ drivers.
               </p>
 
-              <div className="flex flex-wrap justify-center md:justify-start gap-4 text-sm text-gray-400 pt-2">
+              {/* Trust Indicators */}
+              <div className="mt-6 flex flex-wrap justify-center md:justify-start gap-4 text-sm text-gray-400">
                 <span>✔ 10+ Years Experience</span>
                 <span>✔ Premium Film Brands</span>
                 <span>✔ Flawless Installation</span>
               </div>
 
-              <div className="pt-6 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+              {/* CTA (Largest separation) */}
+              <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                 <Link to="/get-quote" className="btn-primary">
                   Get a Free Quote
                 </Link>
@@ -113,7 +119,6 @@ export default function Home() {
                     className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
                   />
 
-                  {/* 🔥 UPDATED OVERLAY POSITION */}
                   <div className="absolute inset-0 bg-black/40 opacity-0 
                                   group-hover:opacity-100 transition duration-300 
                                   flex items-start justify-center pt-6">
@@ -134,7 +139,6 @@ export default function Home() {
         {/* ================= WHY CHOOSE US ================= */}
         <Reveal delay={0.2}>
           <div className="grid md:grid-cols-3 gap-8">
-
             {[
               {
                 title: "10+ Years Experience",
@@ -158,7 +162,6 @@ export default function Home() {
                 </p>
               </div>
             ))}
-
           </div>
         </Reveal>
 

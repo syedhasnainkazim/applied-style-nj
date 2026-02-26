@@ -51,14 +51,12 @@ export default function Home() {
                 Premium materials. Precision installation. Showroom-quality results trusted by NJ drivers.
               </p>
 
-              {/* TRUST SIGNALS */}
               <div className="flex flex-wrap justify-center md:justify-start gap-4 text-sm text-gray-400 pt-2">
                 <span>✔ 10+ Years Experience</span>
                 <span>✔ Premium Film Brands</span>
                 <span>✔ Flawless Installation</span>
               </div>
 
-              {/* CTA BUTTONS */}
               <div className="pt-6 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                 <Link to="/get-quote" className="btn-primary">
                   Get a Free Quote
@@ -115,10 +113,17 @@ export default function Home() {
                     className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
                   />
 
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
-                    <span className="px-4 py-2 rounded-full bg-black/70 border border-white/10 text-sm font-semibold">
+                  {/* 🔥 UPDATED OVERLAY POSITION */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 
+                                  group-hover:opacity-100 transition duration-300 
+                                  flex items-start justify-center pt-6">
+
+                    <span className="px-4 py-2 rounded-full bg-black/70 
+                                     border border-white/10 text-sm font-semibold 
+                                     backdrop-blur-sm">
                       {item.label}
                     </span>
+
                   </div>
                 </div>
               ))}
